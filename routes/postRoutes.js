@@ -16,12 +16,7 @@ router.post('/budget/newBudget', (req, res) => {
         incomes: req.body.incomes,
     });
 
-    //Error handler
-    budget.save((err) => {
-        if(err) {
-            return res.status(500).json({error: err.message});
-        }
-    });
+    budget.save();
 
     return res.json(budget);
 });
@@ -30,10 +25,10 @@ router.post('/budget/newBudget', (req, res) => {
 router.post('/income/newIncome', (req, res) => {
     console.log("Create new income");
     const income = new Income({
-        name: JSON.stringify(req.body.name),
-        incomeType: JSON.stringify(req.body.incomeType),
-        amount: JSON.stringify(req.body.amount),
-        paymentDate: JSON.stringify(req.body.paymentDate),
+        name: req.body.name,
+        incomeType: req.body.incomeType,
+        amount: req.body.amount,
+        paymentDate: req.body.paymentDate,
     });
 
     income.save();
@@ -50,12 +45,7 @@ router.post('/expense/newExpense', (req, res) => {
         expenseDate: req.body.expenseDate,
     });
 
-    //Error handler
-    expense.save((err) => {
-        if(err) {
-            return res.status(500).json({error: err.message});
-        }
-    });
+    expense.save();
 
     return res.json(expense);
 });

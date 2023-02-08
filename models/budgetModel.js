@@ -6,11 +6,11 @@ const BudgetSchema = new mongoose.Schema({
         required: true,
     },
     startDate: {
-        type: Date,
+        type: String,
         required: true,
     },
     endDate: {
-        type: Date,
+        type: String,
     },
     expenses: [
         {

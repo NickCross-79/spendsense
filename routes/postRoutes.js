@@ -4,9 +4,10 @@ const Income = require('../models/incomeModel.js');
 const Expense = require('../models/expenseModel.js');
 
 const router = express.Router();
+router.use(express.json());
 
 //Create a new budget
-router.post('/budgets', (req, res) => {
+router.post('/budget/newBudget', (req, res) => {
     const budget = new Budget({
         name: req.body.name,
         startDate: req.body.startDate,
@@ -26,26 +27,22 @@ router.post('/budgets', (req, res) => {
 });
 
 //Create a new income
-router.post('/income', (req, res) => {
+router.post('/income/newIncome', (req, res) => {
+    console.log("Create new income");
     const income = new Income({
-        name: req.body.name,
-        incomeType: req.body.incomeType,
-        amount: req.body.amount,
-        paymentDate: req.body.paymentDate,
+        name: JSON.stringify(req.body.name),
+        incomeType: JSON.stringify(req.body.incomeType),
+        amount: JSON.stringify(req.body.amount),
+        paymentDate: JSON.stringify(req.body.paymentDate),
     });
 
-    //Error handler
-    income.save((err) => {
-        if(err) {
-            return res.status(500).json({error: err.message});
-        }
-    });
+    income.save();
 
     return res.json(income);
 });
 
 //Create a new expense
-router.post('/expense', (req, res) => {
+router.post('/expense/newExpense', (req, res) => {
     const expense = new Expense({
         name: req.body.name,
         expenseType: req.body.expenseType,

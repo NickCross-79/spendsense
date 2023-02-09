@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const BudgetSchema = new mongoose.Schema({
-    name: {
+    budgetName: {
         type: String,
         required: true,
     },
@@ -24,6 +24,9 @@ const BudgetSchema = new mongoose.Schema({
             ref: 'Income',
         },
     ],
+    notes: {
+        type: String,
+    },
     createdAt: {
         type: Date,
         default: Date.now,

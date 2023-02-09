@@ -12,7 +12,19 @@ const UserSchema = new mongoose.Schema({
     lastName: {
         type: String,
     },
-    budgets: [
+    userIncomes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Income',
+        },
+    ],
+    userExpenses: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Expense',
+        },
+    ],
+    userBudgets: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Budget',

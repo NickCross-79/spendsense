@@ -6,6 +6,7 @@ const Expense = require('../models/expenseModel.js');
 
 const router = express.Router();
 
+//TODO: Implement logic to also delete income from budget
 //Delete Income
 router.delete('/income/:id', (req, res) => {
     Income.deleteOne({_id: ObjectId(req.params.id)})
@@ -18,7 +19,8 @@ router.delete('/income/:id', (req, res) => {
         });
 });
 
-//Delete Expenses
+//TODO: Implement logic to also delete expense from budget
+//Delete Expense
 router.delete('/expense/:id', (req, res) => {
     Expenses.deleteOne({_id: ObjectId(req.params.id)})
         .then(result => {

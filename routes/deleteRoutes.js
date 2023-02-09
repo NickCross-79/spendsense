@@ -7,8 +7,8 @@ const Expense = require('../models/expenseModel.js');
 const router = express.Router();
 
 //Delete Income
-router.delete('/income', (req, res) => {
-    Income.deleteOne({_id: ObjectId(req.body.id)})
+router.delete('/income/:id', (req, res) => {
+    Income.deleteOne({_id: ObjectId(req.params.id)})
         .then(result => {
             console.log(res);
             res.json(result);
@@ -19,8 +19,8 @@ router.delete('/income', (req, res) => {
 });
 
 //Delete Expenses
-router.delete('/expenses', (req, res) => {
-    Expenses.deleteOne({_id: ObjectId(req.body.id)})
+router.delete('/expense/:id', (req, res) => {
+    Expenses.deleteOne({_id: ObjectId(req.params.id)})
         .then(result => {
             console.log(res);
             res.json(result);
@@ -31,8 +31,8 @@ router.delete('/expenses', (req, res) => {
 });
 
 //Delete Budget
-router.delete('/budget', (req, res) => {
-    Budget.deleteOne({_id: ObjectId(req.body.id)})
+router.delete('/budget/:id', (req, res) => {
+    Budget.deleteOne({_id: ObjectId(req.params.id)})
         .then(result => {
             console.log(res);
             res.json(result);
@@ -41,3 +41,5 @@ router.delete('/budget', (req, res) => {
             res.status(500).send(err.message);
         });
 });
+
+module.exports = router;

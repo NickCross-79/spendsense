@@ -7,11 +7,6 @@ const AuthenticationSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    authEmail: {
-        type: String,
-        required: true,
-        unique: true,
-    },
     authPassword: {
         type: String,
         required: true,

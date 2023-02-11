@@ -18,4 +18,4 @@ const AuthenticationSchema = new mongoose.Schema({
 });
 
 //module.exports = mongoose.model('Authentication', AuthSchema);
-export default mongoose.model('Authentication', AuthSchema);
+export default mongoose.model('Authentication', AuthenticationSchema);

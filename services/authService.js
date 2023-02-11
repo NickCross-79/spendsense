@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+const saltRounds = 10;
 
 const hashPassword = (plainPassword) => {
     return new Promise((resolve, reject) => {

@@ -14,6 +14,7 @@ const router = express.Router();
 //TODO: Implement logic to also delete income from budget
 //Delete Income
 router.delete('/income/:id', (req, res) => {
+    console.log("Delete income by id");
     Income.deleteOne({_id: ObjectId(req.params.id)})
         .then(result => {
             console.log(res);
@@ -27,6 +28,7 @@ router.delete('/income/:id', (req, res) => {
 //TODO: Implement logic to also delete expense from budget
 //Delete Expense
 router.delete('/expense/:id', (req, res) => {
+    console.log("Delete expense by id");
     Expense.deleteOne({_id: ObjectId(req.params.id)})
         .then(result => {
             console.log(res);
@@ -39,6 +41,7 @@ router.delete('/expense/:id', (req, res) => {
 
 //Delete Budget
 router.delete('/budget/:id', (req, res) => {
+    console.log("Delete budget by id");
     Budget.deleteOne({_id: ObjectId(req.params.id)})
         .then(result => {
             console.log(res);

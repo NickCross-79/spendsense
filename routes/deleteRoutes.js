@@ -3,7 +3,6 @@
 // const Budget = require('../models/budgetModel.js');
 // const Income = require('../models/incomeModel.js');
 // const Expense = require('../models/expenseModel.js');
-//TODO: Expenses typo
 import express from 'express';
 import { ObjectId } from 'mongodb';
 import Budget from '../models/budgetModel.js';
@@ -28,7 +27,7 @@ router.delete('/income/:id', (req, res) => {
 //TODO: Implement logic to also delete expense from budget
 //Delete Expense
 router.delete('/expense/:id', (req, res) => {
-    Expenses.deleteOne({_id: ObjectId(req.params.id)})
+    Expense.deleteOne({_id: ObjectId(req.params.id)})
         .then(result => {
             console.log(res);
             res.json(result);

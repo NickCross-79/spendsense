@@ -4,6 +4,7 @@ const AuthenticationSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Types.ObjectId,
         required: true,
+        unique: true,
     },
     AuthEmail: {
         type: String,

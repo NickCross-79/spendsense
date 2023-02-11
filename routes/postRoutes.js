@@ -38,7 +38,7 @@ router.post('/income/newIncome', (req, res) => {
         incomeName: req.body.incomeName,
         incomeType: req.body.incomeType,
         incomeAmount: req.body.incomeAmount,
-        paymentFrequency: req.body.incomeFrequency,
+        incomeFrequency: req.body.incomeFrequency,
         paymentDate: req.body.paymentDate,
         notes: req.body.notes,
     });

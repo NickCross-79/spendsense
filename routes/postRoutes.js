@@ -35,10 +35,12 @@ router.post('/budget/newBudget', (req, res) => {
 router.post('/income/newIncome', (req, res) => {
     console.log("Create new income");
     const income = new Income({
-        name: req.body.name,
+        incomeName: req.body.incomeName,
         incomeType: req.body.incomeType,
-        amount: req.body.amount,
+        incomeAmount: req.body.incomeAmount,
+        paymentFrequency: req.body.incomeFrequency,
         paymentDate: req.body.paymentDate,
+        notes: req.body.notes,
     });
 
     income.save();

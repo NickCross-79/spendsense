@@ -10,6 +10,11 @@ import Expense from '../models/expenseModel.js';
 const router = express.Router();
 router.use(express.json());
 
+//Register new user
+router.post('/register', (req, res) => {
+
+});
+
 //Create a new budget
 router.post('/budget/newBudget', (req, res) => {
     const budget = new Budget({

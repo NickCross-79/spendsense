@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const AuthenticationSchema = new mongoose.Schema({
     userId: {
@@ -21,4 +22,5 @@ const AuthenticationSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Authentication', AuthSchema);
+//module.exports = mongoose.model('Authentication', AuthSchema);
+export default mongoose.model('Authentication', AuthSchema);

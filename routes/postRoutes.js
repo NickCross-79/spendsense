@@ -1,7 +1,11 @@
-const express = require('express');
-const Budget = require('../models/budgetModel.js');
-const Income = require('../models/incomeModel.js');
-const Expense = require('../models/expenseModel.js');
+// const express = require('express');
+// const Budget = require('../models/budgetModel.js');
+// const Income = require('../models/incomeModel.js');
+// const Expense = require('../models/expenseModel.js');
+import express from 'express';
+import Budget from '../models/budgetModel.js';
+import Income from '../models/incomeModel.js';
+import Expense from '../models/expenseModel.js';
 
 const router = express.Router();
 router.use(express.json());
@@ -50,4 +54,6 @@ router.post('/expense/newExpense', (req, res) => {
     return res.json(expense);
 });
 
-module.exports = router;
+//module.exports = router;
+
+export default router;

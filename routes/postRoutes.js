@@ -6,13 +6,15 @@ import express from 'express';
 import Budget from '../models/budgetModel.js';
 import Income from '../models/incomeModel.js';
 import Expense from '../models/expenseModel.js';
+import UserController from '../controllers/userController.js'
 
 const router = express.Router();
 router.use(express.json());
 
 //Register new user
 router.post('/register', (req, res) => {
-
+    console.log("Register new user");
+    UserController.registerUser(req);
 });
 
 //Create a new budget

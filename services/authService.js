@@ -12,4 +12,4 @@ const hashPassword = (plainPassword) => {
     });
 };
 
-export default hashPassword;
+export default {hashPassword};

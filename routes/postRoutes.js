@@ -17,6 +17,7 @@ router.post('/register', (req, res) => {
 
 //Create a new budget
 router.post('/budget/newBudget', (req, res) => {
+    console.log("Create new budget");
     const budget = new Budget({
         name: req.body.name,
         startDate: req.body.startDate,
@@ -47,6 +48,7 @@ router.post('/income/newIncome', (req, res) => {
 
 //Create a new expense
 router.post('/expense/newExpense', (req, res) => {
+    console.log("Create new expense");
     const expense = new Expense({
         name: req.body.name,
         expenseType: req.body.expenseType,

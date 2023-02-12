@@ -1,7 +1,3 @@
-// const express = require('express');
-// const Budget = require('../models/budgetModel.js');
-// const Income = require('../models/incomeModel.js');
-// const Expense = require('../models/expenseModel.js');
 import express from 'express';
 import Budget from '../models/budgetModel.js';
 import Income from '../models/incomeModel.js';
@@ -65,7 +61,5 @@ router.post('/expense/newExpense', (req, res) => {
 
     return res.json(expense);
 });
-
-//module.exports = router;
 
 export default router;

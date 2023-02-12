@@ -1,4 +1,3 @@
-//const mongoose = require('mongoose');
 import mongoose from 'mongoose';
 
 const BudgetSchema = new mongoose.Schema({
@@ -34,5 +33,4 @@ const BudgetSchema = new mongoose.Schema({
     },
 });
 
-//module.exports = mongoose.model('Budget', BudgetSchema);
 export default mongoose.model('Budget', BudgetSchema);

@@ -1,9 +1,3 @@
-// require('dotenv').config();
-// const mongoose = require('mongoose');
-// const express = require('express');
-// const getRoutes = require('./routes/getRoutes.js');
-// const postRoutes = require('./routes/postRoutes.js');
-// const deleteRoutes = require('./routes/deleteRoutes');
 import 'dotenv/config';
 import mongoose from 'mongoose';
 import express from 'express';

@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-const saltRounds = 10;
+const saltRounds = process.env.SALTROUNDS_URI;
 
 const hashPassword = (plainPassword) => {
     return new Promise((resolve, reject) => {

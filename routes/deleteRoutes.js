@@ -1,8 +1,3 @@
-// const express = require('express');
-// const ObjectId = require('mongodb').ObjectId;
-// const Budget = require('../models/budgetModel.js');
-// const Income = require('../models/incomeModel.js');
-// const Expense = require('../models/expenseModel.js');
 import express from 'express';
 import { ObjectId } from 'mongodb';
 import Budget from '../models/budgetModel.js';
@@ -69,5 +64,4 @@ router.delete('/budget/:id', (req, res) => {
         });
 });
 
-//module.exports = router;
 export default router;

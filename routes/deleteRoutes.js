@@ -11,28 +11,45 @@ import Expense from '../models/expenseModel.js';
 
 const router = express.Router();
 
-//TODO: Implement logic to also delete income from budget
 //Delete Income
 router.delete('/income/:id', (req, res) => {
     console.log("Delete income by id");
     Income.deleteOne({_id: ObjectId(req.params.id)})
         .then(result => {
             console.log(res);
-            res.json(result);
+            Budget.updateMany(
+                { "incomes": ObjectId(req.params.id) },
+                { $pull: { "incomes": ObjectId(req.params.id) } },
+                { multi: true }
+            )
+            .then(() => {
+                res.json(result);
+            })
+            .catch(err => {
+                res.status(500).send(err.message);
+            });
         })
         .catch(err => {
             res.status(500).send(err.message);
         });
 });
 
-//TODO: Implement logic to also delete expense from budget
 //Delete Expense
 router.delete('/expense/:id', (req, res) => {
     console.log("Delete expense by id");
     Expense.deleteOne({_id: ObjectId(req.params.id)})
         .then(result => {
-            console.log(res);
-            res.json(result);
+            console.log(result);
+            Budget.updateMany(
+                { "expenses": ObjectId(req.params.id) },
+                { $pull: { "expenses": ObjectId(req.params.id) } }
+            )
+            .then(() => {
+                res.json(result);
+            })
+            .catch((err) => {
+                res.status(500).send(err.message);
+            });
         })
         .catch(err => {
             res.status(500).send(err.message);

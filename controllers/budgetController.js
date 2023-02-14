@@ -23,6 +23,40 @@ const newBudget = (req, res) => {
         });
 }
 
+const getTotalBudgetExpenses = (req, res) => {
+    console.log("Get total expenses");
+
+    Budget.aggregate([
+        {
+            $match: { _id: ObjectId(req.body.budgetId) }
+        },
+        {
+            $lookup: {
+                from: 'expenses',
+                localField: 'expenses',
+                foreignField: '_id',
+                as: 'expenseList'
+            }
+        },
+        {
+            $unwind: '$expenseList'
+        },
+        {
+            $group: {
+                _id: '$expenseList.expenseType',
+                totalExpense: { $sum: '$expenseList.expenseAmount' }
+            }
+        }
+    ]).then(result => {
+        console.log(result);
+        res.status(200).json(result);
+    })
+    .catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+    });
+}
+
 const getTotalBudgetIncome = (req, res) => {
     console.log("Get total income");
     Budget.aggregate([
@@ -96,5 +130,6 @@ export default {
     getAllBudgets,
     getBudgetById,
     deleteBudgetById,
-    getTotalBudgetIncome
+    getTotalBudgetIncome,
+    getTotalBudgetExpenses
 }

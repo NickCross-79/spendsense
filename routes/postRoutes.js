@@ -3,6 +3,7 @@ import Budget from '../models/budgetModel.js';
 import Income from '../models/incomeModel.js';
 import Expense from '../models/expenseModel.js';
 import UserController from '../controllers/userController.js'
+import incomeController from '../controllers/incomeController.js';
 
 const router = express.Router();
 router.use(express.json());
@@ -31,21 +32,7 @@ router.post('/budget/newBudget', (req, res) => {
 });
 
 //Create a new income
-router.post('/income/newIncome', (req, res) => {
-    console.log("Create new income");
-    const income = new Income({
-        incomeName: req.body.incomeName,
-        incomeType: req.body.incomeType,
-        incomeAmount: req.body.incomeAmount,
-        incomeFrequency: req.body.incomeFrequency,
-        paymentDate: req.body.paymentDate,
-        notes: req.body.notes,
-    });
-
-    income.save();
-
-    return res.json(income);
-});
+router.post('/income/newIncome', incomeController.newIncome);
 
 //Create a new expense
 router.post('/expense/newExpense', (req, res) => {

@@ -10,10 +10,7 @@ router.use(express.json());
 
 //Register new user
 //TODO: Implement response
-router.post('/register', (req, res) => {
-    console.log("Register new user");
-    UserController.registerUser(req);
-});
+router.post('/register', UserController.registerUser);
 
 //Create a new budget
 router.post('/budget/newBudget', (req, res) => {

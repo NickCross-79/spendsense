@@ -9,14 +9,14 @@ router.use(express.json());
 //Get all budgets
 router.get('/budget', BudgetController.getAllBudgets);
 
+//Get total income
+router.get('/budget/totalIncome', BudgetController.getTotalBudgetIncome);
+
 //Get a budget
 router.get('/budget/:id', BudgetController.getBudgetById);
 
 //Get all incomes
 router.get('/income', IncomeController.getAllIncomes);
-
-//Get total income
-router.get('/income/total', IncomeController.totalIncome);
 
 //Get an income
 router.get('/income/:id', IncomeController.getIncomeById);

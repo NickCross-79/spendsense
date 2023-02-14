@@ -2,24 +2,6 @@ import Income from '../models/incomeModel.js';
 import Budget from '../models/budgetModel.js'
 import { ObjectId } from 'mongodb';
 
-const totalIncome = (req, res) => {
-    console.log("Get total income");
-    Income.aggregate([
-        {
-          $match: { userId: ObjectId(req.body.userId) }
-        },
-        {
-          $group: { _id: null, total: { $sum: "$incomeAmount" } }
-        }
-    ]).then(function(items) {
-        res.status(200).json({"total": items[0].total});
-    })
-    .catch((err) => {
-        console.log(err);
-        res.sendStatus(500);
-    });
-}
-
 const newIncome = (req, res) => {
     console.log("Create new income");
     const income = new Income({
@@ -90,7 +72,6 @@ const deleteIncomeById = (req, res) => {
 }
 
 export default { 
-    totalIncome,
     newIncome,
     getAllIncomes,
     getIncomeById,

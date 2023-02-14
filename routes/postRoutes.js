@@ -1,7 +1,4 @@
 import express from 'express';
-import Budget from '../models/budgetModel.js';
-import Income from '../models/incomeModel.js';
-import Expense from '../models/expenseModel.js';
 import BudgetController from '../controllers/budgetController.js';
 import UserController from '../controllers/userController.js'
 import IncomeController from '../controllers/incomeController.js';

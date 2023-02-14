@@ -47,7 +47,11 @@ const getTotalBudgetIncome = (req, res) => {
             }
         }
     ]).then(result => {
-        res.status(200).json(result[0].total);
+        res.status(200).json({ "totalIncome": result[0].total });
+    })
+    .catch(err => {
+        console.log(err);
+        res.sendStatus(500);
     });
 }
 

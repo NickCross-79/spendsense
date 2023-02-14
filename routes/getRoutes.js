@@ -12,6 +12,9 @@ router.get('/budget', BudgetController.getAllBudgets);
 //Get total income
 router.get('/budget/totalIncome', BudgetController.getTotalBudgetIncome);
 
+//Get total expenses
+router.get('/budget/totalExpenses', BudgetController.getTotalBudgetExpenses);
+
 //Get a budget
 router.get('/budget/:id', BudgetController.getBudgetById);
 

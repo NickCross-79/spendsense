@@ -1,4 +1,5 @@
 import Expense from "../models/expenseModel.js";
+import { ObjectId } from "mongodb";
 
 const newExpense = (req, res) => {
     console.log("Create new expense");
@@ -21,6 +22,32 @@ const newExpense = (req, res) => {
         })
 }
 
+const getAllExpenses = (req, res) => {
+    console.log("Get all expenses");
+    Expense.find()
+        .then(result => {
+            res.status(200).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+}
+
+const getExpenseById = (req, res) => {
+    console.log("Get an expense by id");
+    Expense.findOne({_id: ObjectId(req.params.id)})
+        .then(result => {
+            res.status(200).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+}
+
 export default {
-    newExpense
+    newExpense,
+    getAllExpenses,
+    getExpenseById
 }

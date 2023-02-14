@@ -20,11 +20,12 @@ router.post('/budget/newBudget', (req, res) => {
     console.log("Create new budget");
     const budget = new Budget({
         userId: req.body.userId,
-        name: req.body.name,
+        budgetName: req.body.budgetName,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
-        expenses: req.body.expense,
+        expenses: req.body.expenses,
         incomes: req.body.incomes,
+        notes: req.body.notes,
     });
 
     budget.save();
@@ -40,10 +41,11 @@ router.post('/expense/newExpense', (req, res) => {
     console.log("Create new expense");
     const expense = new Expense({
         userId: req.body.userId,
-        name: req.body.name,
+        expenseName: req.body.expenseName,
         expenseType: req.body.expenseType,
-        amount: req.body.amount,
+        expenseAmount: req.body.expenseAmount,
         expenseDate: req.body.expenseDate,
+        notes: req.body.notes,
     });
 
     expense.save();

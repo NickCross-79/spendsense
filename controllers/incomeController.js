@@ -17,6 +17,7 @@ const totalIncome = (userId) => {
 const newIncome = (req, res) => {
   console.log("Create new income");
   const income = new Income({
+      userId: req.body.userId,
       incomeName: req.body.incomeName,
       incomeType: req.body.incomeType,
       incomeAmount: req.body.incomeAmount,

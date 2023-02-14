@@ -23,6 +23,34 @@ const newBudget = (req, res) => {
         });
 }
 
+const getTotalBudgetIncome = (req, res) => {
+    console.log("Get total income");
+    Budget.aggregate([
+        {
+            $match: { _id: ObjectId(req.body.budgetId) }
+        },
+        {
+            $lookup: {
+                from: 'incomes',
+                localField: 'incomes',
+                foreignField: '_id',
+                as: 'incomeList'
+            }
+        },
+        {
+            $unwind: '$incomeList'
+        },
+        {
+            $group: {
+                _id: '$_id',
+                total: { $sum: '$incomeList.incomeAmount' }
+            }
+        }
+    ]).then(result => {
+        res.status(200).json(result[0].total);
+    });
+}
+
 const getAllBudgets = (req, res) => {
     console.log("Get all budgets");
     Budget.find()
@@ -63,5 +91,6 @@ export default {
     newBudget,
     getAllBudgets,
     getBudgetById,
-    deleteBudgetById
+    deleteBudgetById,
+    getTotalBudgetIncome
 }

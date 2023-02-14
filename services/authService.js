@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
-const saltRounds = process.env.SALTROUNDS_URI;
+import 'dotenv/config';
+
+const saltRounds = parseInt(process.env.SALTROUNDS);
 
 const hashPassword = (plainPassword) => {
     return new Promise((resolve, reject) => {

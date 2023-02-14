@@ -1,4 +1,5 @@
 import Income from '../models/incomeModel.js';
+import Budget from '../models/budgetModel.js'
 import { ObjectId } from 'mongodb';
 
 const totalIncome = (req, res) => {
@@ -65,9 +66,33 @@ const getIncomeById = (req, res) => {
         });
 }
 
+const deleteIncomeById = (req, res) => {
+    console.log("Delete income by id");
+    Income.deleteOne({_id: ObjectId(req.params.id)})
+        .then(() => {
+            Budget.updateMany(
+                { "incomes": ObjectId(req.params.id) },
+                { $pull: { "incomes": ObjectId(req.params.id) } },
+                { multi: true }
+            )
+            .then(result => {
+                res.status(200).json(result);
+            })
+            .catch(err => {
+                console.log(err);
+                res.sendStatus(500);
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+}
+
 export default { 
     totalIncome,
     newIncome,
     getAllIncomes,
-    getIncomeById
+    getIncomeById,
+    deleteIncomeById
 };

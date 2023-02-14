@@ -1,4 +1,5 @@
 import Expense from "../models/expenseModel.js";
+import Budget from "../models/budgetModel.js";
 import { ObjectId } from "mongodb";
 
 const newExpense = (req, res) => {
@@ -46,8 +47,32 @@ const getExpenseById = (req, res) => {
         });
 }
 
+const deleteEpxenseById = (req, res) => {
+    console.log("Delete expense by id");
+    Expense.deleteOne({_id: ObjectId(req.params.id)})
+        .then(() => {
+            Budget.updateMany(
+                { "expenses": ObjectId(req.params.id) },
+                { $pull: { "expenses": ObjectId(req.params.id) } },
+                { $multi: true}
+            )
+            .then(result => {
+                res.status(200).json(result);
+            })
+            .catch(err => {
+                console.log(err)
+                res.sendStatus(500);
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+}
+
 export default {
     newExpense,
     getAllExpenses,
-    getExpenseById
+    getExpenseById,
+    deleteEpxenseById
 }

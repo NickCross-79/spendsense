@@ -47,8 +47,21 @@ const getBudgetById = (req, res) => {
         });
 }
 
+const deleteBudgetById = (req, res) => {
+    console.log("Delete budget by id");
+    Budget.deleteOne({_id: ObjectId(req.params.id)})
+        .then(result => {
+            res.status(200).json(result);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+}
+
 export default {
     newBudget,
     getAllBudgets,
-    getBudgetById
+    getBudgetById,
+    deleteBudgetById
 }

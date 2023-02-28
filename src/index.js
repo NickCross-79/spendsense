@@ -6,6 +6,7 @@ import App from './App';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css"></link>
     <App />
   </React.StrictMode>
 );

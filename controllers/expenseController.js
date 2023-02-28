@@ -25,7 +25,8 @@ const newExpense = (req, res) => {
 
 const getAllExpenses = (req, res) => {
     console.log("Get all expenses");
-    Expense.find()
+    Expense.find({ userId: req.body.userId })
+        .sort({ expenseAmount: -1 })
         .then(result => {
             res.status(200).json(result);
         })

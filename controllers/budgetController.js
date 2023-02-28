@@ -1,5 +1,7 @@
 import { ObjectId } from 'mongodb';
 import Budget from '../models/budgetModel.js';
+import budgetService from '../services/budgetService.js';
+import ExpenseService from '../services/expenseService.js';
 
 const newBudget = (req, res) => {
     console.log("Create new budget");
@@ -125,11 +127,24 @@ const deleteBudgetById = (req, res) => {
         });
 }
 
+const getBudgetStats = (req, res) => {
+    /*ExpenseService.getExpenseTypes(req.body.id)
+        .then(categories => {
+            console.log(categories);
+            res.status(200).json(categories);
+        });*/
+    
+    budgetService.budgetStats(req.body.id).then(result => {
+        res.status(200).json(result);
+    })
+}
+
 export default {
     newBudget,
     getAllBudgets,
     getBudgetById,
     deleteBudgetById,
     getTotalBudgetIncome,
-    getTotalBudgetExpenses
+    getTotalBudgetExpenses,
+    getBudgetStats
 }

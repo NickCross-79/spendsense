@@ -6,6 +6,8 @@ import BudgetController from '../controllers/budgetController.js';
 const router = express.Router();
 router.use(express.json());
 
+router.get('/budget/stats', BudgetController.getBudgetStats);
+
 //Get all budgets
 router.get('/budget', BudgetController.getAllBudgets);
 

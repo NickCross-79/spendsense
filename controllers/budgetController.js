@@ -147,8 +147,6 @@ const getBudgetStats = async (req, res) => {
     const expenseAmountsBytype = await ExpenseService.getExpenseAmountsByType(expenseList);
     const expensePercentages = await MetricService.transformExpenseDataPercentage(expenseAmountsBytype, incomeTotal);
     
-    console.log(expensePercentages);
-    
     const budgetStats = {
         incomeTotal: incomeTotal,
         expenseList: expenseList,

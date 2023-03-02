@@ -7,7 +7,6 @@ const budgetStats = async (id) => {
     const expenseList = budget.expenses.map(expense => expense._id.toString());
     const expenseTypes = await ExpenseService.getExpenseTypes(expenseList);
 
-    console.log(expenseTypes);
     return expenseTypes;
 }
 

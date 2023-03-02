@@ -11,7 +11,7 @@ const getExpenseById = async (req, res) => {
     res.status(200).json(expense);
 }
 
-const deleteEpxenseById = (req, res) => {
+const deleteExpenseById = (req, res) => {
     console.log("Delete expense by id");
     ExpenseService.deleteExpenseById(req.params.id);
 }
@@ -19,5 +19,5 @@ const deleteEpxenseById = (req, res) => {
 export default {
     newExpense,
     getExpenseById,
-    deleteEpxenseById
+    deleteExpenseById
 }

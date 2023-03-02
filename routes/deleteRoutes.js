@@ -9,7 +9,7 @@ const router = express.Router();
 router.delete('/income/:id', IncomeController.deleteIncomeById);
 
 //Delete Expense
-router.delete('/expense/:id', ExpenseController.deleteEpxenseById);
+router.delete('/expense/:id', ExpenseController.deleteExpenseById);
 
 //Delete Budget
 router.delete('/budget/:id', BudgetController.deleteBudgetById);

@@ -1,10 +1,11 @@
 import Auth from '../models/authModel.js';
 import AuthService from '../services/authService.js';
 import User from '../models/userModel.js';
+import UserService from '../services/userService.js';
 
 const registerUser = (req, res) => {
   console.log("Register new user");
-  User.find({ userEmail: req.body.email})
+  User.find({ userEmail: req.body.email })
     .then(result => {
       if (result.length > 0) {
         console.log("Email already in use");
@@ -28,7 +29,7 @@ const registerUser = (req, res) => {
                   .then(() => {
                     return res.sendStatus(200);
                   });
-                
+
               });
           });
       }
@@ -39,4 +40,18 @@ const registerUser = (req, res) => {
     });
 }
 
-export default {registerUser}; 
+const getAllBudgets = (req, res) => {
+  UserService.getAllBudgets(req.params.id)
+    .then(budgetList => {
+      res.status(200).json(budgetList);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+}
+
+export default {
+  registerUser,
+  getAllBudgets
+}; 

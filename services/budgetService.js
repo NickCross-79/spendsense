@@ -1,5 +1,6 @@
 import Budget from '../models/budgetModel.js';
 import ExpenseService from './expenseService.js';
+import { ObjectId } from 'mongodb';
 
 const budgetStats = async (id) => {
     const budget = await Budget.findById(id).populate();
@@ -27,9 +28,36 @@ const getBudgetIncomes = async (id) => {
     return incomeList;
 }
 
+const newBudget = async (req) => {
+    const budget = new Budget({
+        userId: req.body.userId,
+        budgetName: req.body.budgetName,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        expenses: req.body.expenses,
+        incomes: req.body.incomes,
+        notes: req.body.notes,
+    });
+
+    await budget.save();
+    console.log("Budget Saved");
+}
+
+const getBudgetById = (id) => {
+    const budget = Budget.findById(id);
+    return budget;
+}
+
+const deleteBudgetById = async (id) => {
+    await Budget.deleteOne({_id: ObjectId(id)});
+}
+
 export default {
     budgetStats,
     getBudgetExpenses,
     getBudgetAmount,
-    getBudgetIncomes
+    getBudgetIncomes,
+    getBudgetById,
+    deleteBudgetById,
+    newBudget
 }

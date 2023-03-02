@@ -1,7 +1,9 @@
 import { ObjectId } from 'mongodb';
 import Budget from '../models/budgetModel.js';
-import budgetService from '../services/budgetService.js';
+import BudgetService from '../services/budgetService.js';
+import IncomeService from '../services/incomeService.js';
 import ExpenseService from '../services/expenseService.js';
+import MetricService from '../services/metricService.js';
 
 const newBudget = (req, res) => {
     console.log("Create new budget");
@@ -127,16 +129,35 @@ const deleteBudgetById = (req, res) => {
         });
 }
 
-const getBudgetStats = (req, res) => {
+const getBudgetStats = async (req, res) => {
     /*ExpenseService.getExpenseTypes(req.body.id)
         .then(categories => {
             console.log(categories);
             res.status(200).json(categories);
         });*/
     
-    budgetService.budgetStats(req.body.id).then(result => {
-        res.status(200).json(result);
-    })
+    // budgetService.budgetStats(req.body.id).then(result => {
+    //     res.status(200).json(result);
+    // });
+
+    const expenseList = await BudgetService.getBudgetExpenses(req.body.id);
+    const expenseTypes = await ExpenseService.getExpenseTypes(expenseList);
+    const incomeList = await BudgetService.getBudgetIncomes(req.body.id);
+    const incomeTotal = await IncomeService.getIncomeTotals(incomeList);
+    const expenseAmountsBytype = await ExpenseService.getExpenseAmountsByType(expenseList);
+    const expensePercentages = await MetricService.transformExpenseDataPercentage(expenseAmountsBytype, incomeTotal);
+    
+    console.log(expensePercentages);
+    
+    const budgetStats = {
+        incomeTotal: incomeTotal,
+        expenseList: expenseList,
+        expenseTypes: expenseTypes,
+        expensePercentages: expensePercentages
+    }
+
+    res.status(200).json(budgetStats);
+
 }
 
 export default {

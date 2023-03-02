@@ -1,79 +1,23 @@
-import Expense from "../models/expenseModel.js";
-import Budget from "../models/budgetModel.js";
-import { ObjectId } from "mongodb";
+import ExpenseService from "../services/expenseService.js";
 
 const newExpense = (req, res) => {
     console.log("Create new expense");
-    const expense = new Expense({
-        userId: req.body.userId,
-        expenseName: req.body.expenseName,
-        expenseType: req.body.expenseType,
-        expenseAmount: req.body.expenseAmount,
-        expenseDate: req.body.expenseDate,
-        notes: req.body.notes,
-    });
-
-    expense.save()
-        .then(() => {
-            return res.sendStatus(200);
-        })
-        .catch((err) => {
-            console.log(err);
-            return res.sendStatus(500);
-        })
+    ExpenseService.newExpense(req.body);
 }
 
-const getAllExpenses = (req, res) => {
-    console.log("Get all expenses");
-    Expense.find({ userId: req.body.userId })
-        .sort({ expenseAmount: -1 })
-        .then(result => {
-            res.status(200).json(result);
-        })
-        .catch((err) => {
-            console.log(err);
-            res.sendStatus(500);
-        });
-}
-
-const getExpenseById = (req, res) => {
+const getExpenseById = async (req, res) => {
     console.log("Get an expense by id");
-    Expense.findOne({_id: ObjectId(req.params.id)})
-        .then(result => {
-            res.status(200).json(result);
-        })
-        .catch((err) => {
-            console.log(err);
-            res.sendStatus(500);
-        });
+    const expense = await ExpenseService.getExpenseById(req.params.id);
+    res.status(200).json(expense);
 }
 
 const deleteEpxenseById = (req, res) => {
     console.log("Delete expense by id");
-    Expense.deleteOne({_id: ObjectId(req.params.id)})
-        .then(() => {
-            Budget.updateMany(
-                { "expenses": ObjectId(req.params.id) },
-                { $pull: { "expenses": ObjectId(req.params.id) } },
-                { $multi: true}
-            )
-            .then(result => {
-                res.status(200).json(result);
-            })
-            .catch(err => {
-                console.log(err)
-                res.sendStatus(500);
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.sendStatus(500);
-        });
+    ExpenseService.deleteExpenseById(req.params.id);
 }
 
 export default {
     newExpense,
-    getAllExpenses,
     getExpenseById,
     deleteEpxenseById
 }

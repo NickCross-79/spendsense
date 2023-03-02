@@ -55,8 +55,7 @@ const deleteExpenseById = async (id) => {
     await Expense.deleteOne({_id: ObjectId(id)});
     await Budget.updateMany(
         {"expenses": ObjectId(id)},
-        {$pull: {"expenses": ObjectId(id)}},
-        {$multi: true}
+        {$pull: {"expenses": ObjectId(id)}}
     );
 }
 

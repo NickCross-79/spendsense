@@ -1,5 +1,20 @@
 import Income from '../models/incomeModel.js';
+import Budget from '../models/budgetModel.js';
 import { ObjectId } from 'mongodb';
+
+const newIncome = async (incomeData) => {
+    const income = new Income({
+        userId: incomeData.userId,
+        incomeName: incomeData.incomeName,
+        incomeType: incomeData.incomeType,
+        incomeAmount: incomeData.incomeAmount,
+        incomeFrequency: incomeData.incomeFrequency,
+        paymentDate: incomeData.paymentDate,
+        notes: incomeData.notes,
+    });
+
+    await income.save();
+}
 
 const getIncomeTotals = (incomeList) => {
     return new Promise(async (resolve, reject) => {
@@ -8,7 +23,25 @@ const getIncomeTotals = (incomeList) => {
             { $group: { _id: null, total: { $sum: "$incomeAmount" } } }
           ]);
         resolve(totalIncome[0].total);
-    })
+    });
 }
 
-export default {getIncomeTotals}
+const getIncomeById = async (id) => {
+    const income = await Income.findById(id);
+    return income;
+}
+
+const deleteIncomeById = async (id) => {
+    await Income.deleteOne({_id: ObjectId(id)});
+    await Budget.updateMany(
+        {"incomes": ObjectId(id)},
+        {$pull: {"incomes": ObjectId(id)}}
+    );
+}
+
+export default {
+    getIncomeTotals,
+    newIncome,
+    getIncomeById,
+    deleteIncomeById
+}

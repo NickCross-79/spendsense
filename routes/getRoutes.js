@@ -20,9 +20,6 @@ router.get('/budget/:id/expenses', BudgetController.getBudgetExpenses);
 //Get a budget
 router.get('/budget/:id', BudgetController.getBudgetById);
 
-//Get all incomes
-router.get('/income', IncomeController.getAllIncomes);
-
 //Get an income
 router.get('/income/:id', IncomeController.getIncomeById);
 

@@ -7,8 +7,10 @@ import UserController from '../controllers/userController.js';
 const router = express.Router();
 router.use(express.json());
 
+// Get all user budgets
 router.get('/user/:id/budgets', UserController.getAllBudgets);
 
+// Get budget details
 router.get('/budget/stats', BudgetController.getBudgetStats);
 
 //Get total income

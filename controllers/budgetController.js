@@ -60,9 +60,9 @@ const deleteBudgetById = async (req, res) => {
 }
 
 const getBudgetStats = async (req, res) => {
-    const expenseList = await BudgetService.getBudgetExpenses(req.body.id);
+    const expenseList = await BudgetService.getBudgetExpenses(req.params.id);
     const expenseTypes = await ExpenseService.getExpenseTypes(expenseList);
-    const incomeList = await BudgetService.getBudgetIncomes(req.body.id);
+    const incomeList = await BudgetService.getBudgetIncomes(req.params.id);
     const incomeTotal = await IncomeService.getIncomeTotals(incomeList);
     const expenseAmountsBytype = await ExpenseService.getExpenseAmountsByType(expenseList);
     const expensePercentages = await MetricService.transformExpenseDataPercentage(expenseAmountsBytype, incomeTotal);

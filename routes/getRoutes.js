@@ -11,7 +11,7 @@ router.use(express.json());
 router.get('/user/:id/budgets', UserController.getAllBudgets);
 
 // Get budget details
-router.get('/budget/stats', BudgetController.getBudgetStats);
+router.get('/budget/:id/stats', BudgetController.getBudgetStats);
 
 //Get total income
 router.get('/budget/:id/incomes', BudgetController.getBudgetIncomes);

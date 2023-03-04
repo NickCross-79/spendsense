@@ -1,28 +1,23 @@
 import ExpenseItem from "./ExpenseItem";
 import React, { useEffect, useState } from "react";
 
-const TopExpenses = () => {
+const TopExpenses = (props) => {
   const [expenseData, setExpenseData] = useState([]);
-  const id = "640379504ae2f7ce45cd68c7";
-  const getExpenseIds = "http://localhost:3001/budget/" + id + "/expenses";
+  const getExpenseIds = "http://localhost:3001/budget/" + props.budgetId + "/expenses";
   const getExpenseById = "http://localhost:3001/expense/";
 
-  useEffect(() => {
-    fetch(getExpenseIds)
-      .then((response) => {
-        return response.json();
-      })
-      .then((expenseIds) => {
-        const fetchExpensePromises = expenseIds.map((expenseId) => {
-          return fetch(getExpenseById + expenseId).then((response) => {
-            return response.json();
-          });
-        });
+  useEffect(() =>{
+    const fetchExpensePromises = props.expenseList.map(expenseId => {
+        return fetch(getExpenseById + expenseId)
+            .then(response => {
+                return response.json();
+            });
+    });
 
-        Promise.all(fetchExpensePromises).then((data) => {
-          setExpenseData(data);
-        });
-      });
+    Promise.all(fetchExpensePromises)
+        .then(data => {
+            setExpenseData(data);
+        })
   }, []);
 
   return (

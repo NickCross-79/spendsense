@@ -4,11 +4,18 @@ import express from 'express';
 import getRoutes from './routes/getRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import deleteRoutes from './routes/deleteRoutes.js';
+import cors from 'cors';
 
 const app = express();
 mongoose.connect(process.env.MONGODB_URI);
 const db = mongoose.connection;
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+  });
 app.use(getRoutes);
 app.use(postRoutes);
 app.use(deleteRoutes);
@@ -16,5 +23,5 @@ app.use(deleteRoutes);
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
     console.log('Connected to MongoDB');
-    app.listen(3000);
+    app.listen(3001);
 });

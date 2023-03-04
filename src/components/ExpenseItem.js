@@ -7,10 +7,8 @@ const images = importAll(require.context('../icons', false, /\.(png|jpe?g|svg)$/
 
 const ExpenseItem = (props) => {
     const expense = props.expense
-    console.log("expense: ",expense);
 
     const getIcon = (expenseType) => {
-        console.log('test',images);
         switch(expenseType) {
             case 'Subscription':
                 return <img src={images['icon_house_.png']} alt={expense.expenseType} />;

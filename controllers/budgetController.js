@@ -64,14 +64,15 @@ const getBudgetStats = async (req, res) => {
     const expenseTypes = await ExpenseService.getExpenseTypes(expenseList);
     const incomeList = await BudgetService.getBudgetIncomes(req.params.id);
     const incomeTotal = await IncomeService.getIncomeTotals(incomeList);
-    const expenseAmountsBytype = await ExpenseService.getExpenseAmountsByType(expenseList);
-    const expensePercentages = await MetricService.transformExpenseDataPercentage(expenseAmountsBytype, incomeTotal);
+    const expenseAmountsByType = await ExpenseService.getExpenseAmountsByType(expenseList);
+    const expensePercentages = await MetricService.transformExpenseDataPercentage(expenseAmountsByType, incomeTotal);
     
     const budgetStats = {
         incomeTotal: incomeTotal,
+        incomeList: incomeList,
         expenseList: expenseList,
         expenseTypes: expenseTypes,
-        expensePercentages: expensePercentages
+        expensePercentagesByType: expensePercentages
     }
 
     res.status(200).json(budgetStats);

@@ -7,7 +7,7 @@ const id = "640379504ae2f7ce45cd68c7";
 const BudgetCard = () => {
     const [expenseTypes, setExpenseTypes] = useState([]);
     const [expenseList, setExpenseList] = useState(null);
-    const [expensePercentages, setPercentages] = useState([]);
+    const [expensePercentages, setPercentages] = useState(null);
     const [budgetDetails, setBudget] = useState(null);
     const getBudget = 'http://localhost:3001/budget/'+id+'/stats';
     const [pending, setPending] = useState(true);
@@ -19,10 +19,11 @@ const BudgetCard = () => {
             })
             .then(budget => {
                 console.log('budget data:',budget);
+                console.log('percentages',Object.keys(budget.expensePercentagesByType))
                 setBudget(budget);
                 setExpenseList(budget.expenseList);
                 setExpenseTypes(budget.expenseTypes);
-                setPercentages(budget.expensePercentages);
+                setPercentages(budget.expensePercentagesByType);
                 setPending(false);
             })
     }, [])

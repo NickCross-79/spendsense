@@ -7,27 +7,27 @@ const BudgetGraph = (props) => {
 
     useEffect(() => {
         const myChartRef = chartRef.current.getContext('2d');
-
         new Chart(myChartRef, {
             type: 'doughnut',
             data:{
-                labels: props.expenseTypes,
+                labels: Object.keys(props.data),
                 datasets: [
                     {
                         label: 'Budget',
-                        data: props.data,
+                        data: Object.values(props.data),
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1,
+                        hoverOffset: 40
                     },
                 ],
-            },
-            hoverOffset: 4
+            }
         })
     },[]);
 
-    return ( 
-        <canvas ref={chartRef} />
+    return (
+        <div style={{width: 225}}>
+            <canvas ref={chartRef} />
+        </div> 
     );
 }
  

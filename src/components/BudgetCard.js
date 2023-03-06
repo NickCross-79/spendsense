@@ -2,14 +2,14 @@ import TopExpenses from "./TopExpenses";
 import BudgetGraph from "./BudgetGraph";
 import React, { useEffect, useState } from "react";
 
-const id = "640379504ae2f7ce45cd68c7";
+const budgetId = "64056144a3f9df09bb5801aa";
 
 const BudgetCard = () => {
     const [expenseTypes, setExpenseTypes] = useState([]);
     const [expenseList, setExpenseList] = useState(null);
     const [expensePercentages, setPercentages] = useState(null);
     const [budgetDetails, setBudget] = useState(null);
-    const getBudget = 'http://localhost:3001/budget/'+id+'/stats';
+    const getBudget = 'http://localhost:3001/budget/'+budgetId+'/stats';
     const [pending, setPending] = useState(true);
 
     useEffect(() => {
@@ -32,7 +32,7 @@ const BudgetCard = () => {
         <div className="budgetCard">
             <h3>Total Budget</h3>
             <h1>${!pending && budgetDetails.incomeTotal}</h1>
-            {!pending && <TopExpenses budgetId={id} expenseList={expenseList} />}
+            {!pending && <TopExpenses budgetId={budgetId} expenseList={expenseList} />}
             <h1>graph</h1>
             <div className="budget-card-expense-list">
                 <h3>Expenses</h3>

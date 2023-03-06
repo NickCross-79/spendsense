@@ -45,6 +45,7 @@ const getExpenseTypes = (expenses) => {
             if (err) {
                 reject(err);
             } else {
+                expenseTypes.push('unspentIncome');
                 resolve(expenseTypes);
             }
         });

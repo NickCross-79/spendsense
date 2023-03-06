@@ -9,12 +9,7 @@ const ExpenseItem = (props) => {
     const expense = props.expense
 
     const getIcon = (expenseType) => {
-        switch(expenseType) {
-            case 'Subscription':
-                return <img src={images['icon_house_.png']} alt={expense.expenseType} />;
-            default:
-                return <p>{expense.expenseType}</p>;
-        }
+        return <img src={images['icon_'+expenseType+'_.png']} alt={expense.expenseType} />
     }
 
     return ( 

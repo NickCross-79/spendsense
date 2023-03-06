@@ -6,6 +6,8 @@ const transformExpenseDataPercentage = (expenseData, incomeAmount) => {
             result[expense] = (expenseData[expense] / incomeAmount).toFixed(4);
         });
 
+        result.unspentIncome = ((incomeAmount - Object.values(expenseData).reduce((a, b) => a + b, 0)) / incomeAmount).toFixed(4);
+
         resolve(result);
     })
 }

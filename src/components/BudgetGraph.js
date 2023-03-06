@@ -10,7 +10,8 @@ const expenseTypeColors = {
     entertainment: 'rgba(255, 173, 214, 1)',
     debt_repayment: 'rgba(169, 169, 169, 1)',
     savings: 'rgba(162, 116, 255, 1)',
-    taxes: 'rgba(0, 0, 139, 1)'
+    taxes: 'rgba(0, 0, 139, 1)',
+    unspentIncome: 'rgba(138, 79, 255, 1)'
 }
 
 const BudgetGraph = (props) => {
@@ -21,7 +22,7 @@ const BudgetGraph = (props) => {
         return expenseTypes.map(expenseType => expenseTypeColors[expenseType] || 'rgba(0, 0, 0, 1)');
     }
 
-    console.log(backgroundColor(props.expenseTypes));
+    console.log(props.expenseTypes);
 
     useEffect(() => {
         const myChartRef = chartRef.current.getContext('2d');
@@ -34,7 +35,7 @@ const BudgetGraph = (props) => {
                         label: 'Budget',
                         data: Object.values(props.data),
                         backgroundColor: backgroundColor(props.expenseTypes),
-                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderColor: 'rgba(0, 0, 0, 0)',
                         hoverOffset: 20
                     },
                 ],

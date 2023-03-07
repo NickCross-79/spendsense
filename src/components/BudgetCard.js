@@ -30,14 +30,18 @@ const BudgetCard = () => {
     
     return ( 
         <div className="budget-card">
-            <h1>graph</h1>
+            <h1>{budgetDetails.budgetName}</h1>
             <div className="budget-card_total-budget">
-                <h3>Total Budget</h3>
-                <h1>${!pending && budgetDetails.incomeTotal}</h1>
+                <h3 style={{fontWeight: 700, fontSize: 20, textAlign: "center", color: "rgba(0, 0, 0, 0.48)", margin: 0, padding: 7}}>
+                    Total Budget
+                </h3>
+                <h1 style={{fontWeight: 700, fontSize: 40, textAlign: "center", color: "black", margin: 0}}>
+                    ${!pending && budgetDetails.incomeTotal}
+                </h1>
             </div>
             {!pending && <TopExpenses budgetId={budgetId} expenseList={expenseList} />}
             
-            <div className="budget-card-graph">
+            <div className="budget-card_graph">
                 {!pending && <BudgetGraph expenseTypes={expenseTypes} data={expensePercentages} />}
             </div>
         </div>

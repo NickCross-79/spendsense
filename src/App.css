@@ -72,5 +72,15 @@
   display: inline-block;
 }
 
+.budget-card_graph {
+  position: absolute;
+  left: 72px;
+  bottom: -30px;
+}
 
-
+.budget-card_total-budget {
+  position: absolute;
+  margin: 0;
+  top: 60px;
+  left: 135px;
+}

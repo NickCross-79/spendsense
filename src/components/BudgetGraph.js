@@ -49,6 +49,9 @@ const BudgetGraph = (props) => {
                             boxHeight: 15
                         }
                     }
+                },
+                layout: {
+                    autoPadding: true
                 }
             }
         })
@@ -56,7 +59,7 @@ const BudgetGraph = (props) => {
 
     return (
         <div style={{width: 397}}>
-            <canvas className="budget-card_graph" ref={chartRef} />
+            <canvas ref={chartRef} />
         </div> 
     );
 }

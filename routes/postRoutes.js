@@ -19,6 +19,10 @@ router.post('/income/newIncome', IncomeController.newIncome);
 // Create a new expense
 router.post('/expense/newExpense', ExpenseController.newExpense);
 
-router.post('/plaid/create_link_token/:userId', UserController.generatePLinkToken)
+// Generate Plaid link token
+router.post('/plaid/create_link_token/:userId', UserController.generatePLinkToken);
+
+// Exchange public token for access token
+router.post('/plaid/exchange_public_token/:pubtoken', UserController.exchangePublicToken);
 
 export default router;

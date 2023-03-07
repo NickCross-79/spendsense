@@ -14,17 +14,31 @@ const SideMenu = () => {
 
     const [linkToken, setLinkToken] = useState(null);
 
-    const handleClick = () => {
-        axios.post('http://localhost:3001/plaid/create_link_token/64056143a3f9df09bb5801a9')
-            .then(res => {
-                console.log(res.data);
-                setLinkToken(res.data.link_token);
-            })
+    useEffect(() => {
+        const generateLinkToken = async () => {
+            const response = await axios.post('http://localhost:3001/plaid/create_link_token/64056143a3f9df09bb5801a9');
+            console.log(response.data.link_token);
+            setLinkToken(response.data.link_token);
+        }
+        generateLinkToken();
+    }, [])
+
+    const {open, ready} = usePlaidLink({
+        token: linkToken,
+        onSuccess: (public_token, metadata) => {
+            console.log("Public token:",public_token, metadata);
+        }
+    });
+
+    const handleClick = async () => {
+        const response = await axios.post('http://localhost:3001/plaid/create_link_token/64056143a3f9df09bb5801a9');
+        console.log(response.data.link_token);
+        setLinkToken(response.data.link_token);
     }
 
     return ( 
         <div className="side-menu">
-            <button onClick={handleClick}>Test Link Token</button>
+            <button onClick={open}>Test Link Token</button>
             <p>Account</p>
             <img src={images['icon_profile_.png']} alt="Profile" />
             <AccountBalance />

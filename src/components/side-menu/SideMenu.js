@@ -1,3 +1,5 @@
+import AccountBalance from "./AccountBalance";
+
 function importAll(r){
     let images = {};
     r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
@@ -11,6 +13,7 @@ const SideMenu = () => {
         <div className="side-menu">
             <p>Account</p>
             <img src={images['icon_profile_.png']} alt="Profile" />
+            <AccountBalance />
         </div>
      );
 }

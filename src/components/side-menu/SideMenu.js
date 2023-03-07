@@ -13,6 +13,7 @@ const images = importAll(require.context('../../icons', false, /\.(png|jpe?g|svg
 const SideMenu = () => {
 
     const [linkToken, setLinkToken] = useState(null);
+    const [publicToken, setPublicToken] = useState(null);
 
     useEffect(() => {
         const generateLinkToken = async () => {
@@ -27,14 +28,9 @@ const SideMenu = () => {
         token: linkToken,
         onSuccess: (public_token, metadata) => {
             console.log("Public token:",public_token, metadata);
+            setPublicToken(public_token);
         }
     });
-
-    const handleClick = async () => {
-        const response = await axios.post('http://localhost:3001/plaid/create_link_token/64056143a3f9df09bb5801a9');
-        console.log(response.data.link_token);
-        setLinkToken(response.data.link_token);
-    }
 
     return ( 
         <div className="side-menu">

@@ -2,7 +2,6 @@ import 'dotenv/config';
 import bcrypt from 'bcrypt';
 import 'dotenv/config';
 import * as plaid from 'plaid';
-import * as plaidLink from 'react-plaid-link';
 
 // Plaid config
 const config = new plaid.Configuration({

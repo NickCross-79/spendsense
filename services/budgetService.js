@@ -11,6 +11,11 @@ const budgetStats = async (id) => {
     return expenseTypes;
 }
 
+const getBudgetName = async (id) => {
+    const budget = await Budget.findById(id).populate();
+    return budget.budgetName;
+}
+
 const getBudgetAmount = async (id) => {
     const budget = await Budget.findById(id).populate();
     return budget.budgetAmount;
@@ -59,5 +64,6 @@ export default {
     getBudgetIncomes,
     getBudgetById,
     deleteBudgetById,
+    getBudgetName,
     newBudget
 }

@@ -66,8 +66,10 @@ const getBudgetStats = async (req, res) => {
     const incomeTotal = await IncomeService.getIncomeTotals(incomeList);
     const expenseAmountsByType = await ExpenseService.getExpenseAmountsByType(expenseList);
     const expensePercentages = await MetricService.transformExpenseDataPercentage(expenseAmountsByType, incomeTotal);
-    
+    const budgetName = await BudgetService.getBudgetName(req.params.id);
+
     const budgetStats = {
+        budgetName: budgetName,
         incomeTotal: incomeTotal,
         incomeList: incomeList,
         expenseList: expenseList,

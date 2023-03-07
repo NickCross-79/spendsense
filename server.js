@@ -5,7 +5,6 @@ import getRoutes from './routes/getRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import deleteRoutes from './routes/deleteRoutes.js';
 import cors from 'cors';
-import * as plaid from 'plaid';
 
 // Initialize app and DB connection
 const app = express();

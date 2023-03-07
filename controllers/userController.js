@@ -2,6 +2,7 @@ import Auth from '../models/authModel.js';
 import AuthService from '../services/authService.js';
 import User from '../models/userModel.js';
 import UserService from '../services/userService.js';
+import PlaidService from '../services/plaidService.js';
 
 const registerUser = async (req, res) => {
   console.log("Register new user");
@@ -21,13 +22,13 @@ const getAllBudgets = (req, res) => {
 }
 
 const generatePLinkToken = async (req, res) => {
-  const response = await AuthService.generatePLinkToken(req.params.userId);
+  const response = await PlaidService.generatePLinkToken(req.params.userId);
   res.status(200).json(response)
 }
 
 const exchangePublicToken = async (req, res) => {
   try {
-    const access_token = await AuthService.exchangePublicToken(req.params.pubtoken);
+    const access_token = await PlaidService.exchangePublicToken(req.params.pubtoken);
     res.status(200).json(access_token);
   } catch (err) {
     res.sendStatus(500);

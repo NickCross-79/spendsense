@@ -39,13 +39,24 @@ const BudgetGraph = (props) => {
                         hoverOffset: 20
                     },
                 ],
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            boxWidth: 15,
+                            boxHeight: 15
+                        }
+                    }
+                }
             }
         })
     },[]);
 
     return (
-        <div style={{width: 225}}>
-            <canvas ref={chartRef} />
+        <div style={{width: 397}}>
+            <canvas className="budget-card_graph" ref={chartRef} />
         </div> 
     );
 }

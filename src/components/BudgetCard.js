@@ -29,17 +29,14 @@ const BudgetCard = () => {
     }, [])
     
     return ( 
-        <div className="budgetCard">
-            <h3>Total Budget</h3>
-            <h1>${!pending && budgetDetails.incomeTotal}</h1>
-            {!pending && <TopExpenses budgetId={budgetId} expenseList={expenseList} />}
+        <div className="budget-card">
             <h1>graph</h1>
-            <div className="budget-card-expense-list">
-                <h3>Expenses</h3>
-                {!pending && budgetDetails.expenseTypes.map((expense => {
-                    return <li>{expense}</li>
-                }))}
+            <div className="budget-card_total-budget">
+                <h3>Total Budget</h3>
+                <h1>${!pending && budgetDetails.incomeTotal}</h1>
             </div>
+            {!pending && <TopExpenses budgetId={budgetId} expenseList={expenseList} />}
+            
             <div className="budget-card-graph">
                 {!pending && <BudgetGraph expenseTypes={expenseTypes} data={expensePercentages} />}
             </div>

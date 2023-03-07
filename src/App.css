@@ -40,7 +40,7 @@
   color: #000000;
 }
 
-.budgetCard {
+.budget-card {
   position: relative;
   width: 905px;
   height: 471px;
@@ -72,8 +72,5 @@
   display: inline-block;
 }
 
-canvas {
-  max-width: 100%;
-  height: auto;
-}
+
 

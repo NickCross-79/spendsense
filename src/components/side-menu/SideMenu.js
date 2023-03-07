@@ -1,6 +1,7 @@
 import AccountBalance from "./AccountBalance";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {usePlaidLink} from 'react-plaid-link';
 
 function importAll(r){
     let images = {};
@@ -11,12 +12,13 @@ const images = importAll(require.context('../../icons', false, /\.(png|jpe?g|svg
 
 const SideMenu = () => {
 
-    const [response, setResponse] = useState(null);
+    const [linkToken, setLinkToken] = useState(null);
 
     const handleClick = () => {
         axios.post('http://localhost:3001/plaid/create_link_token/64056143a3f9df09bb5801a9')
             .then(res => {
                 console.log(res.data);
+                setLinkToken(res.data.link_token);
             })
     }
 

@@ -14,6 +14,19 @@ const SideMenu = () => {
 
     const [linkToken, setLinkToken] = useState(null);
     const [publicToken, setPublicToken] = useState(null);
+    const [accessToken, setAccessToken] = useState(null);
+
+    const {open, ready} = usePlaidLink({
+        token: linkToken,
+        onSuccess: async (public_token, metadata) => {
+            console.log("Public token:",public_token, metadata);
+            setPublicToken(public_token);
+            const access_token = await axios.post('http://localhost:3001/plaid/exchange_public_token/'+public_token);
+            console.log(access_token.data);
+            setAccessToken(access_token.data);
+
+        }
+    });
 
     useEffect(() => {
         const generateLinkToken = async () => {
@@ -22,15 +35,7 @@ const SideMenu = () => {
             setLinkToken(response.data.link_token);
         }
         generateLinkToken();
-    }, [])
-
-    const {open, ready} = usePlaidLink({
-        token: linkToken,
-        onSuccess: (public_token, metadata) => {
-            console.log("Public token:",public_token, metadata);
-            setPublicToken(public_token);
-        }
-    });
+    }, []);
 
     return ( 
         <div className="side-menu">

@@ -7,16 +7,18 @@ import ExpenseController from '../controllers/expenseController.js';
 const router = express.Router();
 router.use(express.json());
 
-//Register new user
+// Register new user
 router.post('/register', UserController.registerUser);
 
-//Create a new budget
+// Create a new budget
 router.post('/budget/newBudget', BudgetController.newBudget);
 
-//Create a new income
+// Create a new income
 router.post('/income/newIncome', IncomeController.newIncome);
 
-//Create a new expense
+// Create a new expense
 router.post('/expense/newExpense', ExpenseController.newExpense);
+
+router.post('/plaid/create_link_token/:userId', UserController.createPLinkToken)
 
 export default router;

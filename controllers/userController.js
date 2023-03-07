@@ -20,7 +20,13 @@ const getAllBudgets = (req, res) => {
     });
 }
 
+const createPLinkToken = async (req, res) => {
+  const response = await AuthService.createPLinkToken(req.params.userId);
+  res.status(200).json(response)
+}
+
 export default {
   registerUser,
-  getAllBudgets
+  getAllBudgets,
+  createPLinkToken
 }; 

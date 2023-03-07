@@ -84,3 +84,12 @@
   top: 60px;
   left: 135px;
 }
+
+.side-menu {
+  position: fixed;
+  top: 0px;
+  width: 360px;
+  height: 100vh;
+  right: 0;
+  background: #E5ECF4;
+}

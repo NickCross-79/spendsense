@@ -19,7 +19,6 @@ const BudgetCard = () => {
             })
             .then(budget => {
                 console.log('budget data:',budget);
-                console.log('percentages',Object.keys(budget.expensePercentagesByType))
                 setBudget(budget);
                 setExpenseList(budget.expenseList);
                 setExpenseTypes(budget.expenseTypes);
@@ -30,7 +29,7 @@ const BudgetCard = () => {
     
     return ( 
         <div className="budget-card">
-            <h1>{budgetDetails.budgetName}</h1>
+            <h1>{!pending && budgetDetails.budgetName}</h1>
             <div className="budget-card_total-budget">
                 <h3 style={{fontWeight: 700, fontSize: 20, textAlign: "center", color: "rgba(0, 0, 0, 0.48)", margin: 0, padding: 7}}>
                     Total Budget

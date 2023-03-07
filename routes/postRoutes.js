@@ -19,6 +19,6 @@ router.post('/income/newIncome', IncomeController.newIncome);
 // Create a new expense
 router.post('/expense/newExpense', ExpenseController.newExpense);
 
-router.post('/plaid/create_link_token/:userId', UserController.createPLinkToken)
+router.post('/plaid/create_link_token/:userId', UserController.generatePLinkToken)
 
 export default router;

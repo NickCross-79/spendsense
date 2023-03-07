@@ -2,6 +2,7 @@ import 'dotenv/config';
 import bcrypt from 'bcrypt';
 import 'dotenv/config';
 import * as plaid from 'plaid';
+import * as plaidLink from 'react-plaid-link';
 
 // Plaid config
 const config = new plaid.Configuration({
@@ -30,7 +31,7 @@ const hashPassword = (plainPassword) => {
     });
 };
 
-const createPLinkToken = async (userId) => {
+const generatePLinkToken = async (userId) => {
     const request = {
         user: {
             client_user_id: userId,
@@ -53,5 +54,5 @@ const createPLinkToken = async (userId) => {
 
 export default {
     hashPassword,
-    createPLinkToken
+    generatePLinkToken
 };

@@ -25,8 +25,18 @@ const generatePLinkToken = async (req, res) => {
   res.status(200).json(response)
 }
 
+const exchangePublicToken = async (req, res) => {
+  try {
+    const access_token = await AuthService.exchangePublicToken(req.params.pubtoken);
+    res.status(200).json(access_token);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+}
+
 export default {
   registerUser,
   getAllBudgets,
-  generatePLinkToken
+  generatePLinkToken,
+  exchangePublicToken
 }; 

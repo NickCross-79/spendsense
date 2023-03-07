@@ -14,7 +14,7 @@ const config = new plaid.Configuration({
     },
   });
   
-  // Create new PlaidAPI client
+// Create new PlaidAPI client
 const plaidClient = new plaid.PlaidApi(config);
 
 const saltRounds = parseInt(process.env.SALTROUNDS);
@@ -51,7 +51,19 @@ const generatePLinkToken = async (userId) => {
     }
 };
 
+const exchangePublicToken = async (publicToken) => {
+    try{
+        const plaidResponse = await plaidClient.itemPublicTokenExchange({
+            public_token: publicToken
+        });
+        return plaidResponse.data.access_token;
+    } catch (err) {
+        console.log("Failed to exchange public token");
+    }
+}
+
 export default {
     hashPassword,
-    generatePLinkToken
+    generatePLinkToken,
+    exchangePublicToken
 };

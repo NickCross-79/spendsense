@@ -16,6 +16,7 @@ const SideMenu = () => {
     const [publicToken, setPublicToken] = useState(null);
     const [accessToken, setAccessToken] = useState(null);
     const [itemId, setItemId] = useState(null);
+    const [transactions, setTransactions] = useState(null);
 
     const {open, ready} = usePlaidLink({
         token: linkToken,
@@ -42,7 +43,7 @@ const SideMenu = () => {
         console.log("logic check:",transactionData.data === false);
         console.log("transaction data:",transactionData)
         if(transactionData.data == false) setTimeout(pollServer,5000);
-        else return transactionData;
+        else setTransactions(transactionData.data);;
     }
 
     useEffect(() => {
@@ -57,7 +58,7 @@ const SideMenu = () => {
     useEffect(() => {
         async function call(){
             if(itemId != null){
-                const transactionData = await pollServer();
+                await pollServer();
             }
         }
         call();
@@ -68,7 +69,7 @@ const SideMenu = () => {
             <button onClick={open}>Test Link Token</button>
             <p>Account</p>
             <img src={images['icon_profile_.png']} alt="Profile" />
-            <AccountBalance />
+            <AccountBalance balance={transactions}/>
         </div>
      );
 }

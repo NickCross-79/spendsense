@@ -29,7 +29,18 @@ const generatePLinkToken = async (req, res) => {
 const exchangePublicToken = async (req, res) => {
   try {
     const access_token = await PlaidService.exchangePublicToken(req.params.pubtoken);
-    res.status(200).json(access_token);
+    res.status(200).json(access_token.data);
+  } catch (err) {
+    console.log("Failed to call plaid service for enchangePublicToken", err)
+    res.status(500).json("Failed to generate access token");
+  }
+}
+
+const getTransactionData = async (req, res) => {
+  try {
+    await PlaidService.setPlaidTransactionRequestFlag(req.body.item_id);
+    const transactionData = await PlaidService.getTransactionData(req.body.transactionRequest, req.body.item_id);
+    res.status(200).json(transactionData);
   } catch (err) {
     res.sendStatus(500);
   }
@@ -39,5 +50,6 @@ export default {
   registerUser,
   getAllBudgets,
   generatePLinkToken,
-  exchangePublicToken
+  exchangePublicToken,
+  getTransactionData
 }; 

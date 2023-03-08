@@ -1,4 +1,5 @@
 import * as plaid from 'plaid';
+import PlaidTransactionRequestFlag from '../models/requestFlagModel.js';
 import 'dotenv/config';
 
 // Plaid config
@@ -22,10 +23,11 @@ const generatePLinkToken = async (userId) => {
             client_user_id: userId,
         },
         client_name: 'SpendSense',
-        products: ['auth'],
+        products: ['transactions'],
         language: 'en',
         redirect_uri: 'http://localhost:3001/',
         country_codes: ['CA'],
+        webhook: 'https://f21a-174-95-60-30.ngrok.io/plaid/webhook'
 
     };
     try{
@@ -43,13 +45,56 @@ const exchangePublicToken = async (publicToken) => {
         const plaidResponse = await plaidClient.itemPublicTokenExchange({
             public_token: publicToken
         });
-        return plaidResponse.data.access_token;
+        return plaidResponse;
     } catch (err) {
         console.log("Failed to exchange public token");
     }
 };
 
+// Get transaction data
+const getTransactionData = async (transactionRequest, item_id) => {
+    try {
+        if(await checkFlag(item_id)){
+            return false;
+        } else {
+            await PlaidTransactionRequestFlag.deleteOne({item_id: item_id});
+            const response = await plaidClient.transactionsGet(transactionRequest);
+            return response.data;
+        }
+        
+    } catch (err) {
+        console.log("Failed to fetch transaction data");
+        console.log(err);
+    }
+}
+
+async function checkFlag(item_id) {
+    const flag = await PlaidTransactionRequestFlag.findOne({item_id: item_id, initial_hook_received: true, historical_hook_received: true}).exec();
+    return flag === null;
+}
+
+const setPlaidTransactionRequestFlag = async (item_id) => {
+    try {
+        
+        const existingFlag = await PlaidTransactionRequestFlag.findOne({item_id: item_id});
+        
+        if(existingFlag === null){
+            const flag = new PlaidTransactionRequestFlag({
+                item_id: item_id,
+                initial_hook_received: false,
+                historical_hook_received: false,
+            });
+            console.log("New flag, item id: "+item_id);
+            await flag.save();
+        }
+    } catch (err) {
+        console.log("Failed to create transaction request flag", err);
+    }
+}
+
 export default {
     generatePLinkToken,
-    exchangePublicToken
+    exchangePublicToken,
+    getTransactionData,
+    setPlaidTransactionRequestFlag
 };

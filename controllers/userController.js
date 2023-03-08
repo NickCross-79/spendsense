@@ -1,6 +1,3 @@
-import Auth from '../models/authModel.js';
-import AuthService from '../services/authService.js';
-import User from '../models/userModel.js';
 import UserService from '../services/userService.js';
 import PlaidService from '../services/plaidService.js';
 

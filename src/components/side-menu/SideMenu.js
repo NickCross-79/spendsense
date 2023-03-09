@@ -1,4 +1,5 @@
 import AccountBalance from "./AccountBalance";
+import ThisMonthsTransactions from "./ThisMonthsTransactions";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {usePlaidLink} from 'react-plaid-link';
@@ -16,7 +17,7 @@ const SideMenu = () => {
     const [publicToken, setPublicToken] = useState(null);
     const [accessToken, setAccessToken] = useState(null);
     const [itemId, setItemId] = useState(null);
-    const [transactions, setTransactions] = useState(null);
+    const [transactionData, setTransactionData] = useState(null);
 
     const {open, ready} = usePlaidLink({
         token: linkToken,
@@ -32,7 +33,7 @@ const SideMenu = () => {
 
     async function pollServer(){
         console.log("polling");
-        const transactionData = await axios.post('http://localhost:3001/user/transactions', {
+        const response = await axios.post('http://localhost:3001/user/transactions', {
                 item_id: itemId,
                 transactionRequest: {
                     access_token: accessToken,
@@ -40,10 +41,10 @@ const SideMenu = () => {
                     end_date: '2023-02-01'
                 }
         });
-        console.log("logic check:",transactionData.data === false);
-        console.log("transaction data:",transactionData)
-        if(transactionData.data == false) setTimeout(pollServer,5000);
-        else setTransactions(transactionData.data);;
+        console.log("logic check:",response.data === false);
+        console.log("transaction data:",response)
+        if(response.data == false) setTimeout(pollServer,5000);
+        else setTransactionData(response.data);;
     }
 
     useEffect(() => {
@@ -69,7 +70,8 @@ const SideMenu = () => {
             <button onClick={open}>Test Link Token</button>
             <p>Account</p>
             <img src={images['icon_profile_.png']} alt="Profile" />
-            <AccountBalance balance={transactions}/>
+            {transactionData != null && <AccountBalance balance={transactionData}/>}
+            {transactionData != null && <ThisMonthsTransactions transactions={transactionData}/>}
         </div>
      );
 }

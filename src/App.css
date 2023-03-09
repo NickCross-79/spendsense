@@ -93,3 +93,43 @@
   right: 0;
   background: #E5ECF4;
 }
+
+.side-menu_account-balance{
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
+  line-height: 15px;
+}
+
+.side-menu_account-balance_name {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.48);
+}
+
+.side-menu_account-balance_balance {
+  font-size: 40px;
+}
+
+.side-menu_this-months-transactions_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+}
+
+.side-menu_this-months-transactions_item_name, 
+.side-menu_this-months-transactions_item_amount,
+.side-menu_this-months-transactions_item_date {
+  flex: 1;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.side-menu_this-months-transactions_item_amount {
+  text-align: center;
+}
+
+.side-menu_this-months-transactions_item_date {
+  color: rgba(0, 0, 0, 0.48);
+}

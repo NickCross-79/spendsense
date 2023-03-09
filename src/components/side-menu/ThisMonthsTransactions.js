@@ -19,7 +19,7 @@ const ThisMonthsTransactions = (props) => {
                         return (
                             <div className="side-menu_this-months-transactions_item">
                                 <p className="side-menu_this-months-transactions_item_name">
-                                    {transaction.name}</p>
+                                    {transaction.merchant_name == null ? transaction.name : transaction.merchant_name}</p>
                                 <p className="side-menu_this-months-transactions_item_amount">
                                     ${transaction.amount.toFixed(2)}</p>
                                 <p className="side-menu_this-months-transactions_item_date">

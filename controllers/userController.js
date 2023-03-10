@@ -9,7 +9,8 @@ const registerUser = async (req, res) => {
 }
 
 const getAllBudgets = (req, res) => {
-  UserService.getAllBudgets(req.params.id)
+  console.log("req.body.decodedToken.userId:", req.body.decodedToken.userId);
+  UserService.getAllBudgets(req.body.decodedToken.userId)
     .then(budgetList => {
       res.status(200).json(budgetList);
     })
@@ -52,7 +53,7 @@ const authenticateUser = async (req, res) => {
       const jwtToken = await AuthService.generateJWT(userAuthenticated);
       res.cookie('token', jwtToken, {
         httpOnly: true,
-        maxAge: 90000,
+        maxAge: 1000*60*1440, // 1 day
       });
     }
     res.status(200).json(true);

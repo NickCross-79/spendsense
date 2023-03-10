@@ -29,6 +29,9 @@ router.post('/plaid/exchange_public_token/:pubtoken', UserController.exchangePub
 // Get user transactions
 router.post('/user/transactions', UserController.getTransactionData);
 
+// Authenticate user
+router.post('/user/authenticate', UserController.authenticateUser);
+
 // Plaid webhook listener
 router.post('/plaid/webhook', handleRequest);
 

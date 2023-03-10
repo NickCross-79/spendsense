@@ -16,7 +16,7 @@ const registerUser = async(userData) => {
 
         await user.save();
 
-        const hash = await AuthService.hashPassword(userData.password)
+        const hash = await AuthService.hashPassword(userData.userPassword)
         const auth = new Auth({
             userId: user._id,
             authPassword: hash,

@@ -13,7 +13,7 @@ const BudgetCard = () => {
     const [pending, setPending] = useState(true);
 
     useEffect(() => {
-        fetch(getBudget)
+        fetch(getBudget, {method: 'GET', credentials: 'include'})
             .then(response => {
                 return response.json();
             })

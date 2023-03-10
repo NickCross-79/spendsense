@@ -17,9 +17,9 @@ const RightImage = () => {
         const response = await SendRequest.postReq("/user/authenticate", authRequest);
         console.log(response);
 
-        // if(response.authStatus == true){
-        //     window.location.replace("http://localhost:3000/overview");
-        // }
+        if(response == true){
+            window.location.replace("http://localhost:3000/overview");
+        }
 
     }
 

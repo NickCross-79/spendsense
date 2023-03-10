@@ -9,7 +9,7 @@ const registerUser = async (req, res) => {
 }
 
 const getAllBudgets = (req, res) => {
-  UserService.getAllBudgets(req.body.decodedToken.userId)
+  UserService.getAllBudgets(req.decodedToken.userId)
     .then(budgetList => {
       res.status(200).json(budgetList);
     })

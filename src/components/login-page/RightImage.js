@@ -32,7 +32,7 @@ const RightImage = () => {
                     />
                     <button>Login</button>
                     <p>New User?</p>
-                    <a href="/">Sign Up</a>
+                    <a href="/login">Sign Up</a>
                 </form>
             </div>
         </div>

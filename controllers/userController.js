@@ -47,7 +47,15 @@ const getTransactionData = async (req, res) => {
 const authenticateUser = async (req, res) => {
   try {
     const userAuthenticated = await AuthService.authenticateUser(req.body.userEmail, req.body.userPassword);
-    res.status(200).json(userAuthenticated);
+    if(userAuthenticated == false) throw new Error('Incorrect credentials');
+    else {
+      const jwtToken = await AuthService.generateJWT(userAuthenticated);
+      res.cookie('token', jwtToken, {
+        httpOnly: true,
+        maxAge: 90000,
+      });
+    }
+    res.status(200).json(true);
   } catch (err) {
     console.log("Failed to authenticate user!", err);
     res.sendStatus(500);

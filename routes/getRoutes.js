@@ -3,6 +3,7 @@ import IncomeController from '../controllers/incomeController.js';
 import ExpenseController from '../controllers/expenseController.js';
 import BudgetController from '../controllers/budgetController.js';
 import UserController from '../controllers/userController.js';
+import AuthService from '../services/authService.js';
 
 const router = express.Router();
 router.use(express.json());
@@ -11,7 +12,7 @@ router.use(express.json());
 router.get('/user/:id/budgets', UserController.getAllBudgets);
 
 // Get budget details
-router.get('/budget/:id/stats', BudgetController.getBudgetStats);
+router.get('/budget/:id/stats', AuthService.validateRequest, BudgetController.getBudgetStats);
 
 //Get total income
 router.get('/budget/:id/incomes', BudgetController.getBudgetIncomes);

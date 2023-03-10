@@ -1,14 +1,16 @@
 import './App.css';
-import Nav from './components/Nav'
-import BudgetCard from './components/budget-card/BudgetCard'
+import LoginPage from './components/login-page/LoginPage';
+import Nav from './components/Nav';
+import BudgetCard from './components/budget-card/BudgetCard';
 import SideMenu from './components/side-menu/SideMenu';
 
 function App() {
   return (
     <div className="App">
-      <Nav />
+      {/* <Nav />
       <BudgetCard />
-      <SideMenu />
+      <SideMenu /> */}
+      <LoginPage />
     </div>
   );
 }

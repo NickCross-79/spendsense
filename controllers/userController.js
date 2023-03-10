@@ -9,7 +9,6 @@ const registerUser = async (req, res) => {
 }
 
 const getAllBudgets = (req, res) => {
-  console.log("req.body.decodedToken.userId:", req.body.decodedToken.userId);
   UserService.getAllBudgets(req.body.decodedToken.userId)
     .then(budgetList => {
       res.status(200).json(budgetList);

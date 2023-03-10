@@ -27,7 +27,7 @@ const generatePLinkToken = async (userId) => {
         language: 'en',
         redirect_uri: 'http://localhost:3001/',
         country_codes: ['CA'],
-        webhook: 'https://1ac0-174-95-60-30.ngrok.io/plaid/webhook'
+        webhook: 'https://a433-174-95-60-30.ngrok.io/plaid/webhook'
 
     };
     try{

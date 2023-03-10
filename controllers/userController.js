@@ -1,5 +1,6 @@
 import UserService from '../services/userService.js';
 import PlaidService from '../services/plaidService.js';
+import AuthService from '../services/authService.js';
 
 const registerUser = async (req, res) => {
   console.log("Register new user");
@@ -43,10 +44,21 @@ const getTransactionData = async (req, res) => {
   }
 }
 
+const authenticateUser = async (req, res) => {
+  try {
+    const userAuthenticated = await AuthService.authenticateUser(req.body.userEmail, req.body.userPassword);
+    res.status(200).json(userAuthenticated);
+  } catch (err) {
+    console.log("Failed to authenticate user!", err);
+    res.sendStatus(500);
+  }
+}
+
 export default {
   registerUser,
   getAllBudgets,
   generatePLinkToken,
   exchangePublicToken,
-  getTransactionData
+  getTransactionData,
+  authenticateUser
 }; 

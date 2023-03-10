@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SendRequest from "../../util/sendRequest";
 
 const RightImage = () => {
 
@@ -13,6 +14,13 @@ const RightImage = () => {
             userPassword: password
         };
         console.log(authRequest);
+        const response = await SendRequest.postReq("/user/authenticate", authRequest);
+        console.log(response);
+
+        // if(response.authStatus == true){
+        //     window.location.replace("http://localhost:3000/overview");
+        // }
+
     }
 
     return ( 

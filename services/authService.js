@@ -19,14 +19,10 @@ const hashPassword = (plainPassword) => {
 
 const authenticateUser = async (userEmail, userPassword) => {
     const user = await User.findOne({userEmail: userEmail}).exec();
-    console.log("Found user:",user._id.toString());
 
     if(user != null) {
         const storedHash = await AuthModel.findOne({userId: user._id}).exec();
-        const hashCheck = await bcrypt.compare(userPassword, storedHash.authPassword);
-        console.log(storedHash.authPassword);
-        console.log("Logic check:",hashCheck);
-        return hashCheck;
+        return await bcrypt.compare(userPassword, storedHash.authPassword);
     }
     return false;
 }

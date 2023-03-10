@@ -1,9 +1,11 @@
 import express from 'express';
+import 'dotenv/config';
 import BudgetController from '../controllers/budgetController.js';
 import UserController from '../controllers/userController.js'
 import IncomeController from '../controllers/incomeController.js';
 import ExpenseController from '../controllers/expenseController.js';
 import PlaidTransactionRequestFlag from '../models/requestFlagModel.js';
+import AuthService from '../services/authService.js';
 
 const router = express.Router();
 router.use(express.json());

@@ -34,7 +34,6 @@ const getExpenseAmountsByType = (expenseIds) => {
                 result[expense.expenseType] = expense.expenseAmount;
             }
         });
-        console.log(result);
         resolve(result)
     });
 }

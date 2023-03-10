@@ -4,6 +4,7 @@ import express from 'express';
 import getRoutes from './routes/getRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import deleteRoutes from './routes/deleteRoutes.js';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
 // Initialize app and DB connection
@@ -12,7 +13,12 @@ mongoose.connect(process.env.MONGODB_URI);
 const db = mongoose.connection;
 
 // Using cors middleware to enable cross-origin resource sharing
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
+
+app.use(cookieParser());
 
 // Mounting routes on app
 app.use(getRoutes);

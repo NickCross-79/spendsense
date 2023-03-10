@@ -27,7 +27,8 @@ const registerUser = async(userData) => {
 }
 
 const getAllBudgets = async (userId) => {
-    const budgetList = await Budget.find({ userId: userId }, { _id: 1 });
+    const budgetList = await (await Budget.find({ userId: userId }, { _id: 1 }));
+    //const test = budgetList.map(expense => expense.toString());
     return budgetList;
 }
 

@@ -11,6 +11,9 @@ router.use(express.json());
 // Get all user budgets
 router.get('/user/:id/budgets', UserController.getAllBudgets);
 
+// Get user budgets TEST
+router.get('/user/budgets', AuthService.validateRequest, UserController.getAllBudgets);
+
 // Get budget details
 router.get('/budget/:id/stats', AuthService.validateRequest, BudgetController.getBudgetStats);
 

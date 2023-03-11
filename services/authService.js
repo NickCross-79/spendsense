@@ -36,6 +36,7 @@ const generateJWT = async (userId) => {
 }
 
 function validateRequest(req, res, next) {
+    console.log("validate request: ", req.cookies.token);
     const decodedToken = jwt.verify(req.cookies.token, process.env.JWT_KEY);
     req.decodedToken = decodedToken;
 

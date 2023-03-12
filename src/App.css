@@ -262,3 +262,72 @@ main {
   width: 123px;
   height: 46.12px;
 }
+
+/* CREATE BUDGET STYLES */
+
+.create-budget {
+  margin: auto;
+  background: #E5ECF4;
+  width: 442px;
+  height: auto;
+  border-radius: 11px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.create-budget_form {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+}
+
+.row {
+  display: flex;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.row input {
+  height: 39px;
+  width: 249px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.row label {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 12px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.48);
+  margin-bottom: 10px;
+}
+
+.create-budget_form button {
+  width: auto;
+  background: #8A4FFF;
+  border-radius: 20px;
+  color: #FFFFFF;
+  border-style: none;
+  padding: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.column {
+  display: flex;
+  margin-right: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+

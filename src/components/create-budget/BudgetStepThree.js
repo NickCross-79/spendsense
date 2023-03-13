@@ -1,6 +1,11 @@
 import stepThree from '../../assets/images/create-budget-steps/budget_step_three.png';
 
-const BudgetStepThree = () => {
+const BudgetStepThree = (props) => {
+
+    const handleClick = () => {
+        props.changeStep("next");
+    }
+
     return ( 
         <div className="create-budget_step">
             <img className='create-budget_step_img' src={stepThree}></img>
@@ -12,19 +17,33 @@ const BudgetStepThree = () => {
                 <input></input>
 
                 <label>Category</label>
-                <input></input>
+                <select id='expenseTypeSelect'>
+                    <option value={'debt-repayment'}>Debt Repayment</option>
+                    <option value={'entertainment'}>Entertainment</option>
+                    <option value={'food'}>Food</option>
+                    <option value={'healthcare'}>Healthcare</option>
+                    <option value={'housing'}>Housing</option>
+                    <option value={'personal-care'}>Personal Care</option>
+                    <option value={'savings'}>Savings</option>
+                    <option value={'taxes'}>Taxes</option>
+                    <option value={'transportation'}>Transportation</option>
+                    <option value={'other'}>Other</option>
+                </select>
 
                 <label>Amount</label>
-                <div className='create-budget_step_amount'>
-                    <span id='test' style={{content: '$'}}/><input style={{width: '223px'}} />
-                    <span id='test' style={{content: '.'}}/><input style={{width: '139px'}} />
+                <div className='row' style={{marginLeft: '0px'}}>
+                    <span style={{fontSize: '50px', marginTop: '5px'}}>$</span>
+                    <input style={{width: '223px'}} />
                 </div>
-                
 
                 <label>Payment Date</label>
-                <input></input>
+                <input className='create-budget_step_date' type={'date'} />
+
+                <button className='create-budget_next' style={{marginTop: '0px', color: '#FFFFFF', background: '#8A4FFF'}}>
+                    Add</button>
             </div>
-            <button className='create-budget_next'>Next Step</button>
+            <button className='create-budget_next' onClick={handleClick}>
+                Next Step</button>
         </div>
      );
 }

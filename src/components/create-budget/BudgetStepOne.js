@@ -1,6 +1,11 @@
 import stepOne from '../../assets/images/create-budget-steps/budget_step_one.png';
 
-const BudgetStepOne = () => {
+const BudgetStepOne = (props) => {
+
+    const handleClick = () => {
+        props.changeStep("next");
+    }
+
     return ( 
         <div className="create-budget_step">
             <img className='create-bugget_step_img' src={stepOne}></img>
@@ -10,7 +15,8 @@ const BudgetStepOne = () => {
                 <label>Name</label>
                 <input></input>
             </div>
-            <button className='create-budget_next'>Next Step</button>
+            <button className='create-budget_next' onClick={handleClick}>
+                Next Step</button>
         </div>
      );
 }

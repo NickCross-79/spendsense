@@ -1,4 +1,4 @@
-import stepOne from '../../assets/images/create-budget-steps/budget_step_one_.png';
+import stepOne from '../../assets/images/create-budget-steps/budget_step_one.png';
 
 const BudgetStepOne = () => {
     return ( 

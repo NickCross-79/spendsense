@@ -1,5 +1,4 @@
 import BudgetCard from './budget-card/BudgetCard';
-//import 'dotenv/config';
 import SideMenu from './side-menu/SideMenu';
 import Nav from './Nav';
 import { useEffect, useState } from 'react';
@@ -21,9 +20,9 @@ const Overview = () => {
 
     return ( 
         <>  
+            <Nav />
             {budgets != null && <BudgetCard budgets={budgets} />}
             <SideMenu />
-            <Nav />
         </>
     );
 }

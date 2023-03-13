@@ -2,6 +2,8 @@ main {
   text-align: center;
   background-color: #ffffff;
   font-family: 'Inter';
+  width: 1440px;
+  height: 1024px;
 }
 
 .logo {
@@ -266,68 +268,75 @@ main {
 /* CREATE BUDGET STYLES */
 
 .create-budget {
-  margin: auto;
-  background: #E5ECF4;
-  width: 442px;
-  height: auto;
-  border-radius: 11px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.create-budget_form {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 13px;
-  text-align: center;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 5px;
-}
-
-.row {
   display: flex;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
+}
+
+.create-budget_step {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 120px;
+}
+
+.create-budget_step div {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.row input {
-  height: 39px;
-  width: 249px;
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.6);
-  border-radius: 6px;
-  margin-bottom: 10px;
+.create-budget_step_img {
+  object-fit: cover;
 }
 
-.row label {
+.create-budget_step_header {
   font-style: normal;
-  font-weight: 700;
-  font-size: 10px;
-  line-height: 12px;
+  font-weight: 600;
+  font-size: 57.6008px;
+  line-height: 70px;
+  text-align: center;
+  color: #000000;
+}
+
+.create-budget_step_header span {
+  background: linear-gradient(56.25deg, #5500FF 27.16%, #D0B9FF 102.54%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.create-budget_step div label {
+  margin-top: 103px;
+  margin-bottom: 22px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 27px;
   text-align: center;
   color: rgba(0, 0, 0, 0.48);
-  margin-bottom: 10px;
 }
 
-.create-budget_form button {
-  width: auto;
-  background: #8A4FFF;
-  border-radius: 20px;
-  color: #FFFFFF;
-  border-style: none;
-  padding: 5px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 16px;
+.create-budget_step div input {
+  width: 579px;
+  height: 65px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 70px;
 }
 
-.column {
-  display: flex;
-  margin-right: 10px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-around;
+.create-budget_next {
+  margin-top: 600px;
+  width: 252px;
+  height: 61px;
+  border: 3px solid #8A4FFF;
+  border-radius: 146px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+  text-align: center;
+  color: #000000;
+  background: #FFFFFF;
 }
-

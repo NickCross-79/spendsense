@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import stepOne from '../../assets/images/create-budget-steps/budget_step_one.png';
 
 const BudgetStepOne = (props) => {
 
+    const [name, setName] = useState(null);
+
     const handleClick = () => {
+        props.passFormData("one", {name: name});
         props.changeStep("next");
     }
 
@@ -13,7 +17,7 @@ const BudgetStepOne = (props) => {
                 <h1 className='create-budget_step_header'>
                 What is the <span>Name</span> of your Budget?</h1>
                 <label>Name</label>
-                <input></input>
+                <input onChange={e => setName(e.target.value)} />
             </div>
             <button className='create-budget_next' onClick={handleClick}>
                 Next Step</button>

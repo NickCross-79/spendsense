@@ -4,7 +4,7 @@ import BudgetStepThree from "./BudgetStepThree";
 import BudgetStepFour from "./BudgetStepFour";
 import BudgetStepFive from "./BudgetStepFive";
 import Nav from "../Nav";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CreateBudget = () => {
 
@@ -41,16 +41,14 @@ const CreateBudget = () => {
                 setEndDate(data.endDate);
                 break;
             case 'three':
-                data.forEach(expense => {
-                    expenses.push(expense);
-                });
+                setExpenses([...expenses, data]);
                 break;
             case 'four':
-                data.forEach(income => {
-                    incomes.push(income);
-                });
+                setIncomes([...incomes, data]);
                 break;
         }
+
+        console.log(data);
     }
 
     const createBudget = async () => {

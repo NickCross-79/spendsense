@@ -46,7 +46,7 @@ const BudgetCard = (props) => {
                         Total Budget
                     </h3>
                     <h1 style={{fontWeight: 700, fontSize: 40, textAlign: "center", color: "black", margin: 0}}>
-                        ${!pending && budgetDetails.incomeTotal}
+                        ${!pending && budgetDetails.incomeTotal.toFixed(2)}
                     </h1>
                 </div>
                 {!pending && <TopExpenses budgetId={props.budgetId} expenseList={expenseList} />}

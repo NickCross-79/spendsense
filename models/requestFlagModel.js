@@ -14,4 +14,5 @@ const PlaidTransactionRequestFlagSchema = new mongoose.Schema({
         required: true,
     },
 });
+
 export default mongoose.model('PlaidTransactionRequestFlag', PlaidTransactionRequestFlagSchema);

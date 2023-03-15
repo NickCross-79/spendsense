@@ -10,7 +10,7 @@ const BudgetStepFour = (props) => {
     const [paymentDate, setPaymentDate] = useState(null);
 
     const handelAdd = () => {
-        props.passFormData("three", {
+        props.passFormData("four", {
             incomeName: incomeName,
             incomeType: incomeType,
             incomeAmount: incomeAmount,
@@ -48,7 +48,7 @@ const BudgetStepFour = (props) => {
                 <label>Amount</label>
                 <div className='row' style={{marginLeft: '0px'}}>
                     <span style={{fontSize: '50px', marginTop: '5px'}}>$</span>
-                    <input style={{width: '223px'}} onChange={e => setIncomeAmount(e.target.value)} />
+                    <input style={{width: '223px'}} onChange={e => setIncomeAmount(parseFloat(e.target.value))} />
                 </div>
 
                 <div className='row' style={{marginLeft: '-120px'}}>

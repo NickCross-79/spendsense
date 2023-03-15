@@ -5,6 +5,7 @@ import BudgetStepFour from "./BudgetStepFour";
 import BudgetStepFive from "./BudgetStepFive";
 import Nav from "../Nav";
 import { useEffect, useState } from "react";
+import sendRequest from "../../util/sendRequest";
 
 const CreateBudget = () => {
 
@@ -52,9 +53,34 @@ const CreateBudget = () => {
     }
 
     const createBudget = async () => {
-        //Create Expenses
-        //Create Incomes
-        //Create Budget
+
+        // Create Expenses
+        const expensePromises = expenses.map(async expense => {
+            const response = await sendRequest.postReq('/expense/newExpense', expense);
+            return response;
+        });
+
+        // Create Incomes
+        const incomePromises = incomes.map(async income => {
+            const response = await sendRequest.postReq('/income/newIncome', income);
+            return response;
+        });
+
+        const expenseIds = await Promise.all(expensePromises);
+        const incomeIds = await Promise.all(incomePromises);
+
+        const budget = {
+            budgetName: budgetName,
+            startDate: startDate,
+            endDate: endDate,
+            expenses: expenseIds,
+            incomes: incomeIds
+        }
+
+        console.log("budget: ",budget);
+
+        // Create Budget
+        await sendRequest.postReq('/budget/newBudget', budget)
     }
 
     return ( 

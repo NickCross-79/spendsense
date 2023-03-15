@@ -48,7 +48,7 @@ const BudgetStepThree = (props) => {
                 <label>Amount</label>
                 <div className='row' style={{marginLeft: '0px'}}>
                     <span style={{fontSize: '50px', marginTop: '5px'}}>$</span>
-                    <input style={{width: '223px'}} onChange={e => setExpenseAmount(e.target.value)} />
+                    <input style={{width: '223px'}} onChange={e => setExpenseAmount(parseFloat(e.target.value))} />
                 </div>
 
                 <label>Payment Date</label>

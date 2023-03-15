@@ -8,7 +8,7 @@ const postReq = async (endpoint, request) => {
 
 const getReq = async (endpoint, request) => {
     const response = axios.get(process.env.REACT_APP_SERVER_ADDRESS+endpoint, request, {withCredentials: true});
-    console.log("Get Response",response.data);
+    console.log("Get Response: ",response.data);
     return (await response).data;
 }
 

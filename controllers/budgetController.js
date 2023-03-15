@@ -7,7 +7,7 @@ import MetricService from '../services/metricService.js';
 
 const newBudget = (req, res) => {
     console.log("Create new budget");
-    BudgetService.newBudget(req)
+    BudgetService.newBudget(req, req.decodedToken.userId)
         .then(() => {
             res.sendStatus(200)
         })

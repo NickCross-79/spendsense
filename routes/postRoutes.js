@@ -14,13 +14,13 @@ router.use(express.json());
 router.post('/register', UserController.registerUser);
 
 // Create a new budget
-router.post('/budget/newBudget', BudgetController.newBudget);
+router.post('/budget/newBudget', AuthService.validateRequest, BudgetController.newBudget);
 
 // Create a new income
-router.post('/income/newIncome', IncomeController.newIncome);
+router.post('/income/newIncome', AuthService.validateRequest, IncomeController.newIncome);
 
 // Create a new expense
-router.post('/expense/newExpense', ExpenseController.newExpense);
+router.post('/expense/newExpense', AuthService.validateRequest, ExpenseController.newExpense);
 
 // Generate Plaid link token
 router.post('/plaid/create_link_token/:userId', UserController.generatePLinkToken);

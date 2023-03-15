@@ -1,8 +1,10 @@
 import ExpenseService from "../services/expenseService.js";
 
-const newExpense = (req, res) => {
+const newExpense = async (req, res) => {
     console.log("Create new expense");
-    ExpenseService.newExpense(req.body);
+    console.log("req: ",req);
+    const response = await ExpenseService.newExpense(req.body, req.decodedToken.userId);
+    res.status(200).json(response);
 }
 
 const getExpenseById = async (req, res) => {

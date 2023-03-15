@@ -2,18 +2,20 @@ import Expense from '../models/expenseModel.js';
 import Budget from '../models/budgetModel.js'
 import { ObjectId } from 'mongodb';
 
-const newExpense = (expenseData) => {
+const newExpense = (expenseData, userId) => {
     return new Promise(async (resolve, reject) => {
+        console.log("userId:",userId);
         const expense = new Expense({
-            userId: expenseData.userId,
+            userId: userId,
             expenseName: expenseData.expenseName,
             expenseType: expenseData.expenseType,
             expenseAmount: expenseData.expenseAmount,
             expenseDate: expenseData.expenseDate,
-            notes: expenseData.notes,
         });
 
         await expense.save();
+
+        resolve(expense._id);
     });    
 }
 

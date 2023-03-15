@@ -2,9 +2,9 @@ import Income from '../models/incomeModel.js';
 import Budget from '../models/budgetModel.js';
 import { ObjectId } from 'mongodb';
 
-const newIncome = async (incomeData) => {
+const newIncome = async (incomeData, userId) => {
     const income = new Income({
-        userId: incomeData.userId,
+        userId: userId,
         incomeName: incomeData.incomeName,
         incomeType: incomeData.incomeType,
         incomeAmount: incomeData.incomeAmount,
@@ -14,6 +14,8 @@ const newIncome = async (incomeData) => {
     });
 
     await income.save();
+
+    return income._id;
 }
 
 const getIncomeTotals = (incomeList) => {

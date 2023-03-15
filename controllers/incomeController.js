@@ -5,8 +5,8 @@ import { ObjectId } from 'mongodb';
 
 const newIncome = async (req, res) => {
     console.log("Create new income");
-    await IncomeService.newIncome(req.body);
-    res.sendStatus(200);
+    const incomeId = await IncomeService.newIncome(req.body, req.decodedToken.userId);
+    res.status(200).json(incomeId);
 }
 
 const getIncomeById = async (req, res) => {

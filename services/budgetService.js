@@ -33,9 +33,9 @@ const getBudgetIncomes = async (id) => {
     return incomeList;
 }
 
-const newBudget = async (req) => {
+const newBudget = async (req, userId) => {
     const budget = new Budget({
-        userId: req.body.userId,
+        userId: userId,
         budgetName: req.body.budgetName,
         startDate: req.body.startDate,
         endDate: req.body.endDate,

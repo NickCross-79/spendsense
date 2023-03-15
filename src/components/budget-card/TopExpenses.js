@@ -16,7 +16,9 @@ const TopExpenses = (props) => {
 
     Promise.all(fetchExpensePromises)
         .then(data => {
-            setExpenseData(data);
+            const sortedData = data.sort((a,b) => b.expenseAmount - a.expenseAmount);
+            console.log("Sorted data: ",data);
+            setExpenseData(sortedData);
         })
   }, [props]);
 

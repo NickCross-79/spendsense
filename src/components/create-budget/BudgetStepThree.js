@@ -33,12 +33,12 @@ const BudgetStepThree = (props) => {
 
                 <label>Category</label>
                 <select id='expenseTypeSelect' onChange={e => setExpenseType(e.target.value)} >
-                    <option value={'debt-repayment'}>Debt Repayment</option>
+                    <option value={'debt_repayment'}>Debt Repayment</option>
                     <option value={'entertainment'}>Entertainment</option>
                     <option value={'food'}>Food</option>
                     <option value={'healthcare'}>Healthcare</option>
                     <option value={'housing'}>Housing</option>
-                    <option value={'personal-care'}>Personal Care</option>
+                    <option value={'personal_care'}>Personal Care</option>
                     <option value={'savings'}>Savings</option>
                     <option value={'taxes'}>Taxes</option>
                     <option value={'transportation'}>Transportation</option>

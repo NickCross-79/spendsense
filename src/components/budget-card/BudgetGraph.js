@@ -19,6 +19,7 @@ const BudgetGraph = (props) => {
     const chartRef = useRef(null);
 
     const backgroundColor = (expenseTypes) => {
+        
         return expenseTypes.map(expenseType => expenseTypeColors[expenseType] || 'rgba(0, 0, 0, 1)');
     }
 
@@ -32,7 +33,7 @@ const BudgetGraph = (props) => {
                     {
                         label: 'Budget',
                         data: Object.values(props.data),
-                        backgroundColor: backgroundColor(props.expenseTypes),
+                        backgroundColor: backgroundColor(Object.keys(props.data)),
                         borderColor: 'rgba(0, 0, 0, 0)',
                         hoverOffset: 20
                     },

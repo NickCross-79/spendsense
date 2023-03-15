@@ -35,10 +35,10 @@ const BudgetStepFour = (props) => {
 
                 <label>Category</label>
                 <select id='incomeTypeSelect' onChange={e => setIncomeType(e.target.value)} >
-                    <option value={'alimony_child-support'}>Alimony/Child Support</option>
-                    <option value={'freelance_side-hustle'}>Freelance/Side Hustle</option>
+                    <option value={'alimony_child_support'}>Alimony/Child Support</option>
+                    <option value={'freelance_side_hustle'}>Freelance/Side Hustle</option>
                     <option value={'gift_windfall'}>Gift/Windfall</option>
-                    <option value={'government-benefits'}>Government Benefits</option>
+                    <option value={'government_benefits'}>Government Benefits</option>
                     <option value={'investment'}>Investment</option>
                     <option value={'rental'}>Rental</option>
                     <option value={'salary_wage'}>Salary/Wage</option>

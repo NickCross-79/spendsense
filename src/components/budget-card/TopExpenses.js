@@ -18,7 +18,7 @@ const TopExpenses = (props) => {
         .then(data => {
             setExpenseData(data);
         })
-  }, []);
+  }, [props]);
 
   return (
     <div className="top-expenses">

@@ -22,11 +22,9 @@ const BudgetGraph = (props) => {
         return expenseTypes.map(expenseType => expenseTypeColors[expenseType] || 'rgba(0, 0, 0, 1)');
     }
 
-    console.log(props.expenseTypes);
-
     useEffect(() => {
-        const myChartRef = chartRef.current.getContext('2d');
-        new Chart(myChartRef, {
+
+        const chartConfig = {
             type: 'doughnut',
             data:{
                 labels: Object.keys(props.data),
@@ -54,8 +52,14 @@ const BudgetGraph = (props) => {
                     autoPadding: true
                 }
             }
-        })
-    },[]);
+        }
+
+        const myChartRef = chartRef.current.getContext('2d');
+
+        var budgetChart = new Chart(myChartRef, chartConfig)
+
+        return () => {budgetChart.destroy()}
+    }, [props]);
 
     return (
         <div style={{width: 397}}>

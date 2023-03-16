@@ -4,7 +4,7 @@ import BudgetStepThree from "./BudgetStepThree";
 import BudgetStepFour from "./BudgetStepFour";
 import BudgetStepFive from "./BudgetStepFive";
 import Nav from "../Nav";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import sendRequest from "../../util/sendRequest";
 
 const CreateBudget = () => {

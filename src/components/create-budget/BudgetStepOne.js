@@ -16,7 +16,7 @@ const BudgetStepOne = (props) => {
 
     return ( 
         <div className="create-budget_step">
-            <img className='create-bugget_step_img' src={stepOne}></img>
+            <img className='create-bugget_step_img' src={stepOne} />
             <div>
                 <h1 className='create-budget_step_header'>
                 What is the <span>Name</span> of your Budget?</h1>

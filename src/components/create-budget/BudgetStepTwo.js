@@ -1,10 +1,15 @@
 import stepTwo from '../../assets/images/create-budget-steps/budget_step_two.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const BudgetStepTwo = (props) => {
 
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const [startDate, setStartDate] = useState(sessionStorage.getItem('startDate') || '');
+    const [endDate, setEndDate] = useState(sessionStorage.getItem('endDate') || '');
+
+    useEffect(() => {
+        sessionStorage.setItem('startDate', startDate);
+        sessionStorage.setItem('endDate', endDate);
+    }, [startDate, endDate]);
 
     const handleClick = () => {
         props.passFormData("two", {
@@ -23,9 +28,15 @@ const BudgetStepTwo = (props) => {
                 <h1 className='create-budget_step_header'>
                     What is the <span>Timeline</span>?</h1>
                 <label>Start Date</label>
-                <input className='create-budget_step_date' type={'date'} onChange={e => setStartDate(e.target.value)} />
+                <input className='create-budget_step_date' 
+                    type={'date'} 
+                    onChange={e => setStartDate(e.target.value)}
+                    defaultValue={startDate} />
                 <label>End Date</label>
-                <input className='create-budget_step_date' type={'date'} onChange={e => setEndDate(e.target.value)} />
+                <input className='create-budget_step_date' 
+                    type={'date'} 
+                    onChange={e => setEndDate(e.target.value)}
+                    defaultValue={endDate} />
             </div>
             <button className='create-budget_next' onClick={handleClick}>
                 Next Step</button>

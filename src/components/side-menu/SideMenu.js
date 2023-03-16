@@ -21,7 +21,6 @@ const SideMenu = () => {
     useEffect(() => {
             const generateLinkToken = async () => {
                 const response = await axios.post('http://localhost:3001/plaid/create_link_token/64056143a3f9df09bb5801a9');
-                console.log("Link token:",response.data,response.data.link_token);
                 setLinkToken(response.data.link_token);
             }
             generateLinkToken();

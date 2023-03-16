@@ -2,8 +2,10 @@ import stepFive from '../../assets/images/create-budget-steps/budget_step_five.p
 
 const BudgetStepFive = (props) => {
 
-    const handleClick = () => {
-        props.createBudget();
+    const handleClick = async () => {
+        sessionStorage.clear();
+        await props.createBudget();
+        window.location.replace("http://localhost:3000/overview");
     }
 
     return ( 
@@ -16,10 +18,10 @@ const BudgetStepFive = (props) => {
                     <span>Review</span> your Budget!</h1>
 
                 <label>Name</label>
-                <p>My Budget</p>
+                <p>{sessionStorage.getItem('name')}</p>
 
                 <label>Timeline</label>
-                <p>01/02/2023 - 01/03/2023</p>
+                <p>{sessionStorage.getItem('startDate')} to {sessionStorage.getItem('endDate')}</p>
 
                 <div style={{marginLeft: '-150px'}} class='row'>
                     <div>

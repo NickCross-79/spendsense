@@ -24,6 +24,8 @@ const BudgetStepThree = (props) => {
     return ( 
         <div className="create-budget_step">
             <img className='create-budget_step_img' src={stepThree}></img>
+            <button className='create-budget_button' onClick={() => props.changeStep("last")}>
+                Last Step</button>
             <div>
                 <h1 className='create-budget_step_header'>
                 What are your <span>Expenses</span>?</h1>

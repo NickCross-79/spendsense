@@ -21,7 +21,7 @@ const Overview = () => {
     return ( 
         <>  
             <Nav />
-            {budgets != null && <BudgetCard budgets={budgets} />}
+            {budgets != null && budgets.length > 0 && <BudgetCard budgets={budgets} />}
             <SideMenu />
         </>
     );

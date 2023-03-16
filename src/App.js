@@ -2,9 +2,6 @@ import './App.css';
 import LoginPage from './components/login-page/LoginPage';
 import Overview from './components/Overview';
 import CreateBudget from './components/create-budget/CreateBudget';
-import Nav from './components/Nav';
-import BudgetCard from './components/budget-card/BudgetCard';
-import SideMenu from './components/side-menu/SideMenu';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
 function App() {
@@ -12,7 +9,7 @@ function App() {
     <BrowserRouter>
       <main>
         <Routes>
-          <Route path='/' element={<CreateBudget />} />
+          <Route path='/create-budget' element={<CreateBudget />} />
           <Route path='login' element={<LoginPage />} />
           <Route path='overview' element={<Overview />} />
         </Routes>

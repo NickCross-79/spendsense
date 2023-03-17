@@ -1,4 +1,3 @@
-import stepThree from '../../assets/images/create-budget-steps/budget_step_three.png';
 import { useState, useEffect } from 'react';
 
 const BudgetStepThree = (props) => {
@@ -31,7 +30,6 @@ const BudgetStepThree = (props) => {
 
     return ( 
         <div className="create-budget_step">
-            <img className='create-budget_step_img' src={stepThree}></img>
             <button className='create-budget_button' onClick={() => props.changeStep("last")} >
                 Last Step</button>
             <div>

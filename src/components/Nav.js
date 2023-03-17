@@ -6,7 +6,6 @@ function Nav() {
             <Logo />
             <a href='http://localhost:3000/overview'>Overview</a>
             <a href='http://localhost:3000/create-budget'>Create Budget</a>
-            <a>Account</a>    
         </div>
     )
 }

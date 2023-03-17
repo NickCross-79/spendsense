@@ -54,6 +54,7 @@ main {
   text-align: center;
   color: #000000;
   margin-right: 100px;
+  text-decoration: none;
 }
 
 .inputLabel {
@@ -319,7 +320,7 @@ main {
 
 /* CREATE BUDGET STYLES */
 
-.create-budget {
+#create-budget {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -329,7 +330,7 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 120px;
+  margin-top: 70px;
 }
 
 .create-budget_step div {
@@ -341,6 +342,7 @@ main {
 
 .create-budget_step_img {
   object-fit: contain;
+  margin-top: 84px;
 }
 
 .create-budget_step_header {

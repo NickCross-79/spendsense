@@ -1,5 +1,3 @@
-import stepFive from '../../assets/images/create-budget-steps/budget_step_five.png';
-
 const BudgetStepFive = (props) => {
 
     const handleClick = async () => {
@@ -10,7 +8,6 @@ const BudgetStepFive = (props) => {
 
     return ( 
         <div className="create-budget_step">
-            <img className='create-budget_step_img' src={stepFive}></img>
             <button className='create-budget_button' onClick={() => props.changeStep("last")}>
                 Last Step</button>
             <div>

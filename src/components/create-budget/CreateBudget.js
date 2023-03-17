@@ -6,6 +6,15 @@ import BudgetStepFive from "./BudgetStepFive";
 import { useState } from "react";
 import sendRequest from "../../util/sendRequest";
 
+function importAll(r){
+    let steps = {};
+    r.keys().map((item, index) => { steps[item.replace('./', '')] = r(item); });
+    
+    let stepsArr = Object.values(steps);
+    return stepsArr;
+}
+const steps = importAll(require.context('../../assets/images/create-budget-steps', false, /\.(png|jpe?g|svg)$/));
+
 const CreateBudget = () => {
 
     const [step, setStep] = useState(1);
@@ -29,6 +38,9 @@ const CreateBudget = () => {
                     setStep(step-1);
                 break;
         }
+
+        
+        console.log("images:", steps)
     }
 
     const passFormData = (budgetStep, data) => {
@@ -76,15 +88,15 @@ const CreateBudget = () => {
             incomes: incomeIds
         }
 
-        console.log("budget: ",budget);
-
         // Create Budget
         await sendRequest.postReq('/budget/newBudget', budget)
     }
 
     return ( 
         <>
-            <div className="create-budget">
+            <div className="row" id="create-budget">
+                <img className='create-budget_step_img' src={steps[step-1]} />
+
                 {step == 1 && <BudgetStepOne changeStep={changeStep} passFormData={passFormData} />}
                 {step == 2 && <BudgetStepTwo changeStep={changeStep} passFormData={passFormData} />}
                 {step == 3 && <BudgetStepThree changeStep={changeStep} passFormData={passFormData} />}

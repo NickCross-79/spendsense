@@ -3,7 +3,6 @@ import BudgetStepTwo from "./BudgetStepTwo";
 import BudgetStepThree from "./BudgetStepThree";
 import BudgetStepFour from "./BudgetStepFour";
 import BudgetStepFive from "./BudgetStepFive";
-import Nav from "../Nav";
 import { useState } from "react";
 import sendRequest from "../../util/sendRequest";
 
@@ -85,7 +84,6 @@ const CreateBudget = () => {
 
     return ( 
         <>
-            <Nav />
             <div className="create-budget">
                 {step == 1 && <BudgetStepOne changeStep={changeStep} passFormData={passFormData} />}
                 {step == 2 && <BudgetStepTwo changeStep={changeStep} passFormData={passFormData} />}

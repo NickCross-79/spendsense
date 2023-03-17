@@ -2,11 +2,11 @@ import Logo from './Logo'
 
 function Nav() {
     return (
-        <div className="nav">
+        <div className="row" id='nav'>
             <Logo />
-            <a style={{left: '378px'}}>Overview</a>
-            <a style={{left: '502px'}}>Budget</a>
-            <a style={{left: '612px'}}>Account</a>
+            <a href='http://localhost:3000/overview'>Overview</a>
+            <a href='http://localhost:3000/create-budget'>Create Budget</a>
+            <a>Account</a>    
         </div>
     )
 }

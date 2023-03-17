@@ -2,16 +2,16 @@ import Chart from 'chart.js/auto';
 import { useEffect, useRef } from 'react';
 
 const expenseTypeColors = {
-    housing: 'rgba(93, 165, 218, 1)',
-    transportation: 'rgba(125, 206, 160, 1)',
-    food: 'rgba(255, 165, 0, 1)',
-    healthcare: 'rgba(225, 67, 67, 1)',
-    personal_care: 'rgba(128, 0, 128, 1)',
-    entertainment: 'rgba(255, 173, 214, 1)',
-    debt_repayment: 'rgba(169, 169, 169, 1)',
-    savings: 'rgba(162, 116, 255, 1)',
-    taxes: 'rgba(0, 0, 139, 1)',
-    unspentIncome: 'rgba(138, 79, 255, 1)'
+    housing: 'rgba(93, 165, 218, 0.8)',
+    transportation: 'rgba(125, 206, 160, 0.8)',
+    food: 'rgba(255, 165, 0, 0.8)',
+    healthcare: 'rgba(225, 67, 67, 0.8)',
+    personal_care: 'rgba(128, 0, 128, 0.8)',
+    entertainment: 'rgba(255, 173, 214, 0.8)',
+    debt_repayment: 'rgba(169, 169, 169, 0.8)',
+    savings: 'rgba(162, 116, 255, 0.8)',
+    taxes: 'rgba(0, 0, 139, 0.8)',
+    unspentIncome: 'rgba(138, 79, 255, 0.8)'
 }
 
 const BudgetGraph = (props) => {
@@ -50,8 +50,12 @@ const BudgetGraph = (props) => {
                     }
                 },
                 layout: {
-                    autoPadding: true
-                }
+                    padding: 0
+                },
+                cutout: 80,
+                width: 225,
+                height: 225,
+                radius: 100
             }
         }
 
@@ -63,9 +67,7 @@ const BudgetGraph = (props) => {
     }, [props]);
 
     return (
-        <div style={{width: 397}}>
-            <canvas ref={chartRef} />
-        </div> 
+        <canvas ref={chartRef} style={{marginLeft: '70px', width: '350px', height: '350px', alignSelf:'flex-end'}} />
     );
 }
  

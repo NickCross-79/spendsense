@@ -13,7 +13,7 @@ const ExpenseItem = (props) => {
     }
 
     return ( 
-        <div className="expense-item">
+        <div className="row" id='expense-item'>
             <div className="expense-item-icon">
                 {getIcon(expense.expenseType)}
             </div>

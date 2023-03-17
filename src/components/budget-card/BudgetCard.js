@@ -37,27 +37,31 @@ const BudgetCard = (props) => {
     } 
     
     return ( 
-        <div className="budget-card_container">
-            <button className="budget-card_left" onClick={handleLeftClick} />
-            <div className="budget-card">
-                <h1>{!pending && budgetDetails.budgetName}</h1>
-                <div className="budget-card_total-budget">
-                    <h3 style={{fontWeight: 700, fontSize: 20, textAlign: "center", color: "rgba(0, 0, 0, 0.48)", margin: 0, padding: 7}}>
-                        Total Budget
-                    </h3>
-                    <h1 style={{fontWeight: 700, fontSize: 40, textAlign: "center", color: "black", margin: 0}}>
-                        ${!pending && budgetDetails.incomeTotal.toFixed(2)}
-                    </h1>
+        <div className="column" id="budget-card_container">
+                <div className="row">
+                    <button id="budget-card_left" onClick={handleLeftClick} />
+                    <div id="budget-card">
+                        <div className="column" id="budget-card_graph">
+                            <div style={{marginRight: '50px', marginTop: '300px'}}>
+                                <h3 style={{fontWeight: 700, fontSize: 20, textAlign: "center", color: "rgba(0, 0, 0, 0.48)", margin: 0}}>
+                                    Total Budget
+                                </h3>
+                                <h1 style={{fontWeight: 700, fontSize: 40, textAlign: "center", color: "black", margin: 0}}>
+                                    ${!pending && budgetDetails.incomeTotal.toFixed(2)}
+                                </h1>
+                            </div>
+                            {!pending && <BudgetGraph expenseTypes={expenseTypes} data={expensePercentages} />}
+                        </div>
+
+                        <h1 style={{position: 'relative',fontWeight: '700', fontSize: '39px', fontStyle: 'Semi Bold', right: 40, top: -20}}>{!pending && budgetDetails.budgetName}</h1>
+                        {!pending && <TopExpenses budgetId={props.budgetId} expenseList={expenseList} />}
+                        
+                    </div>
+                    <button id="budget-card_right" onClick={handleRightClick} />
                 </div>
-                {!pending && <TopExpenses budgetId={props.budgetId} expenseList={expenseList} />}
-                
-                <div className="budget-card_graph">
-                    {!pending && <BudgetGraph expenseTypes={expenseTypes} data={expensePercentages} />}
-                </div>
-            </div>
-            <button className="budget-card_right" onClick={handleRightClick} />
+                <button className="button" id="budget-card_delete">Delete</button>
         </div>
     );
 }
-//
+
 export default BudgetCard;

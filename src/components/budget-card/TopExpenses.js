@@ -22,7 +22,7 @@ const TopExpenses = (props) => {
   }, [props]);
 
   return (
-    <div className="top-expenses">
+    <div id="top-expenses">
       <h2>Top Expenses</h2>
       {Array.isArray(expenseData) &&
         expenseData

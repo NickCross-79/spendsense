@@ -8,7 +8,6 @@ const newExpense = async (req, res) => {
 }
 
 const getExpenseById = async (req, res) => {
-    console.log("Get an expense by id");
     const expense = await ExpenseService.getExpenseById(req.params.id);
     res.status(200).json(expense);
 }

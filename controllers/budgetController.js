@@ -54,7 +54,7 @@ const getBudgetById = (req, res) => {
 }
 
 const deleteBudgetById = async (req, res) => {
-    console.log("Delete budget by id");
+    console.log("Delete budget by id", req.params.id);
     await BudgetService.deleteBudgetById(req.params.id);
     res.sendStatus(200);
 }

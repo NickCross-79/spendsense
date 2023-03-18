@@ -7,12 +7,18 @@ const postReq = async (endpoint, request) => {
 }
 
 const getReq = async (endpoint, request) => {
-    const response = axios.get(process.env.REACT_APP_SERVER_ADDRESS+endpoint, request, {withCredentials: true});
+    const response = await axios.get(process.env.REACT_APP_SERVER_ADDRESS+endpoint, request, {withCredentials: true});
     console.log("Get Response: ",response.data);
-    return (await response).data;
+    return response.data;
+}
+
+const delReq = async (endpoint, request) => {
+    const response = await axios.delete(process.env.REACT_APP_SERVER_ADDRESS+endpoint, request, {withCredentials: true});
+    return response.data;
 }
 
 export default {
     postReq,
-    getReq
+    getReq,
+    delReq
 };

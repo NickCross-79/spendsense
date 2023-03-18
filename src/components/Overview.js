@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Overview = () => {
+    const [update, setUpdate] = useState(false);
     const [budgets, setBudgets] = useState(null);
 
     useEffect(() => {
@@ -15,13 +16,18 @@ const Overview = () => {
         }
         asyncFunc();
 
-    }, []);
+    }, [update]);
+
+    const updateComponent = () => {
+        setUpdate(!update);
+        console.log("update", update)
+    }
 
     return ( 
         
             <div className='column' id='overview'>
                 <h1 id='overview_header' >Welcome Back <span>Name</span></h1>
-                {budgets != null && budgets.length > 0 && <BudgetCard budgets={budgets} />}
+                {budgets != null && budgets.length > 0 && <BudgetCard budgets={budgets} update={updateComponent} />}
                 <SideMenu />
             </div>
     

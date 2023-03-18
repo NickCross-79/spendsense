@@ -1,10 +1,12 @@
 import TopExpenses from "./TopExpenses";
 import BudgetGraph from "./BudgetGraph";
 import React, { useEffect, useState } from "react";
-import SendRequest from "../../util/sendRequest.js";
 import axios from 'axios';
+import SendRequest from "../../util/sendRequest";
 
 const BudgetCard = (props) => {
+    const [triggerBudgetUpdate, setTriggerBudgetUpdate] = useState(false);
+    const [triggerMain, setTriggerMain] = useState(false);
     const [budgets, setBudgets] = useState(props.budgets);
     const [expenseTypes, setExpenseTypes] = useState([]);
     const [expenseList, setExpenseList] = useState(null);
@@ -14,8 +16,6 @@ const BudgetCard = (props) => {
     const [pending, setPending] = useState(true);
     
     useEffect(() => {
-        
-
         async function funct() {
             const response = await axios.get(process.env.REACT_APP_SERVER_ADDRESS+'/budget/'+budgets[budgetIndex]._id+'/stats', {withCredentials: true});
             console.log("Budget card use effect: ",response.data);
@@ -24,9 +24,17 @@ const BudgetCard = (props) => {
             setExpenseTypes(response.data.expenseTypes);
             setPercentages(response.data.expensePercentagesByType);
             setPending(false);
+            console.log("Budget card budgets:", budgets);
         }
         funct();
     }, [budgetIndex]);
+
+    useEffect(() => {
+        setBudgets(props.budgets);
+        setBudgetIndex(0);
+        setTriggerMain(!triggerMain);
+        console.log("trigger");
+    }, [triggerBudgetUpdate]);
 
     const handleLeftClick = () => {
         if(budgetIndex > 0) setBudgetIndex(budgetIndex-1);
@@ -34,7 +42,15 @@ const BudgetCard = (props) => {
 
     const handleRightClick = () => {
         if(budgetIndex < budgets.length - 1) setBudgetIndex(budgetIndex+1);
+        
     } 
+
+    const handleDelete = async () => {
+        await SendRequest.delReq('/budget/'+props.budgets[budgetIndex]._id);
+        props.update();
+        setTimeout(function(){setTriggerBudgetUpdate(!triggerBudgetUpdate)}, 200);
+        console.log("num of budgets",budgets.length)
+    }
     
     return ( 
         <div className="column" id="budget-card_container">
@@ -59,7 +75,7 @@ const BudgetCard = (props) => {
                     </div>
                     <button id="budget-card_right" onClick={handleRightClick} />
                 </div>
-                <button className="button" id="budget-card_delete">Delete</button>
+                <button className="button" id="budget-card_delete" onClick={handleDelete}>Delete</button>
         </div>
     );
 }

@@ -1,3 +1,4 @@
+import TransactionsChart from "./TransactionsChart";
 import { useEffect, useState } from "react";
 
 const ThisMonthsTransactions = (props) => {
@@ -11,7 +12,7 @@ const ThisMonthsTransactions = (props) => {
     
     return ( 
         <div className="side-menu_this-months-transactions">
-            <h3>Recent Transactions</h3>
+            <h3 className="inputLabel">Recent Transactions</h3>
             {transactions != null && 
                 transactions
                     .slice(0, 5)
@@ -28,6 +29,8 @@ const ThisMonthsTransactions = (props) => {
                         )
                     })
             }
+
+            <TransactionsChart totalTransactionsByDay={props.transactionsByDay}/>
         </div>
      );
 }

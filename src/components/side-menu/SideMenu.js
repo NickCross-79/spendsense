@@ -17,6 +17,7 @@ const SideMenu = () => {
     const [accessToken, setAccessToken] = useState(null);
     const [itemId, setItemId] = useState(null);
     const [transactionData, setTransactionData] = useState(null);
+    const [totalTransactionsByDay, setTotalTransactionsByDay] = useState(null);
 
     useEffect(() => {
             const generateLinkToken = async () => {
@@ -52,14 +53,16 @@ const SideMenu = () => {
                 item_id: itemId,
                 transactionRequest: {
                     access_token: accessToken,
-                    start_date: '2022-01-01',
-                    end_date: '2023-02-01'
+                    start_date: '2023-03-01',
+                    end_date: '2023-03-18'
                 }
         });
-        console.log("logic check:",response.data === false);
-        console.log("transaction data:",response)
         if(response.data == false) setTimeout(pollServer,5000);
-        else setTransactionData(response.data);;
+        else {
+            console.log("plaid transaction response:",response);
+            setTotalTransactionsByDay(response.data.totalTransactionsByDay);
+            setTransactionData(response.data)
+        };
     }
 
     
@@ -70,7 +73,7 @@ const SideMenu = () => {
             <p>Account</p>
             {transactionData == null && <button onClick={open}>Connect Bank Account</button>}
             {transactionData != null && <AccountBalance balance={transactionData}/>}
-            {transactionData != null && <ThisMonthsTransactions transactions={transactionData}/>}
+            {transactionData != null && <ThisMonthsTransactions transactions={transactionData} transactionsByDay={totalTransactionsByDay} />}
         </div>
      );
 }

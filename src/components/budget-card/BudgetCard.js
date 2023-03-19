@@ -5,7 +5,6 @@ import axios from 'axios';
 import SendRequest from "../../util/sendRequest";
 
 const BudgetCard = (props) => {
-    const [triggerBudgetUpdate, setTriggerBudgetUpdate] = useState(false);
     const [triggerMain, setTriggerMain] = useState(false);
     const [budgets, setBudgets] = useState(props.budgets);
     const [expenseTypes, setExpenseTypes] = useState([]);
@@ -34,7 +33,7 @@ const BudgetCard = (props) => {
         setBudgetIndex(0);
         setTriggerMain(!triggerMain);
         console.log("trigger");
-    }, [triggerBudgetUpdate]);
+    }, [props]);
 
     const handleLeftClick = () => {
         if(budgetIndex > 0) setBudgetIndex(budgetIndex-1);
@@ -48,7 +47,6 @@ const BudgetCard = (props) => {
     const handleDelete = async () => {
         await SendRequest.delReq('/budget/'+props.budgets[budgetIndex]._id);
         props.update();
-        setTimeout(function(){setTriggerBudgetUpdate(!triggerBudgetUpdate)}, 200);
         console.log("num of budgets",budgets.length)
     }
     

@@ -27,7 +27,7 @@ const generatePLinkToken = async (userId) => {
         language: 'en',
         redirect_uri: 'http://localhost:3001/',
         country_codes: ['CA'],
-        webhook: 'https://a433-174-95-60-30.ngrok.io/plaid/webhook'
+        webhook: 'https://8947-174-95-60-30.ngrok.io/plaid/webhook'
 
     };
     try{
@@ -54,11 +54,21 @@ const exchangePublicToken = async (publicToken) => {
 // Get transaction data
 const getTransactionData = async (transactionRequest, item_id) => {
     try {
+        const totalTransactionsByDay = {};
         if(await checkFlag(item_id)){
             return false;
         } else {
             await PlaidTransactionRequestFlag.deleteOne({item_id: item_id});
             const response = await plaidClient.transactionsGet(transactionRequest);
+            response.data.transactions.forEach(transaction => {
+                if(!totalTransactionsByDay.hasOwnProperty(transaction.date.slice(-2))){
+                    totalTransactionsByDay[parseInt(transaction.date.slice(-2))] = transaction.amount;
+                } else {
+                    totalTransactionsByDay[parseInt(transaction.date.slice(-2))] += transaction.amount;
+                }
+            });
+
+            response.data.totalTransactionsByDay = totalTransactionsByDay;
             return response.data;
         }
         

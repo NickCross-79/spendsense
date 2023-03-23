@@ -1,7 +1,4 @@
-import Income from '../models/incomeModel.js';
-import Budget from '../models/budgetModel.js';
 import IncomeService from '../services/incomeService.js';
-import { ObjectId } from 'mongodb';
 
 const newIncome = async (req, res) => {
     console.log("Create new income");

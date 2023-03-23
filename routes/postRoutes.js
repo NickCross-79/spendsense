@@ -6,21 +6,39 @@ import IncomeController from '../controllers/incomeController.js';
 import ExpenseController from '../controllers/expenseController.js';
 import PlaidTransactionRequestFlag from '../models/requestFlagModel.js';
 import AuthService from '../services/authService.js';
+import { validationResult } from 'express-validator';
+import validationRules from '../middleware/validationRules.js';
 
 const router = express.Router();
 router.use(express.json());
 
 // Register new user
-router.post('/register', UserController.registerUser);
+router.post('/register', validationRules.registration,(req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) res.status(400).json({errors: errors.array()});
+    else UserController.registerUser(req, res);
+});
 
 // Create a new budget
-router.post('/budget/newBudget', AuthService.validateRequest, BudgetController.newBudget);
+router.post('/budget/newBudget', AuthService.validateRequest, validationRules.budgetCreation, (req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) res.status(400).json({errors: errors.array()});
+    else BudgetController.newBudget(req, res);
+});
 
 // Create a new income
-router.post('/income/newIncome', AuthService.validateRequest, IncomeController.newIncome);
+router.post('/income/newIncome', AuthService.validateRequest, validationRules.expenseCreation, (req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) res.status(400).json({errors: errors.array()});
+    else IncomeController.newIncome(req, res);
+});
 
 // Create a new expense
-router.post('/expense/newExpense', AuthService.validateRequest, ExpenseController.newExpense);
+router.post('/expense/newExpense', AuthService.validateRequest, validationRules.incomeCreation, (req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) res.status(400).json({errors: errors.array()});
+    else ExpenseController.newExpense(req, res);
+});
 
 // Generate Plaid link token
 router.post('/plaid/create_link_token/:userId', UserController.generatePLinkToken);

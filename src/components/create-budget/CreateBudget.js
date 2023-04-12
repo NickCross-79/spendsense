@@ -38,9 +38,6 @@ const CreateBudget = () => {
                     setStep(step-1);
                 break;
         }
-
-        
-        console.log("images:", steps)
     }
 
     const passFormData = (budgetStep, data) => {
@@ -59,8 +56,6 @@ const CreateBudget = () => {
                 setIncomes([...incomes, data]);
                 break;
         }
-
-        console.log(data);
     }
 
     const createBudget = async () => {

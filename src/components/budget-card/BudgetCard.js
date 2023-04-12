@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import SendRequest from "../../util/sendRequest";
 
+const server = process.env.REACT_APP_SERVER_ADDRESS;
+const port = process.env.REACT_APP_BACKEND_PORT_NUMBER;
+
 const BudgetCard = (props) => {
     const [triggerMain, setTriggerMain] = useState(false);
     const [budgets, setBudgets] = useState(props.budgets);
@@ -16,7 +19,7 @@ const BudgetCard = (props) => {
     
     useEffect(() => {
         async function funct() {
-            const response = await axios.get(process.env.REACT_APP_SERVER_ADDRESS+'/budget/'+budgets[budgetIndex]._id+'/stats', {withCredentials: true});
+            const response = await axios.get(`${server}:${port}/budget/`+budgets[budgetIndex]._id+'/stats', {withCredentials: true});
             console.log("Budget card use effect: ",response.data);
             setBudget(response.data);
             setExpenseList(response.data.expenseList);

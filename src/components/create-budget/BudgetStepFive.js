@@ -1,9 +1,12 @@
+const server = process.env.REACT_APP_SERVER_ADDRESS;
+const port = process.env.REACT_APP_FRONTEND_PORT_NUMBER;
+
 const BudgetStepFive = (props) => {
 
     const handleClick = async () => {
         sessionStorage.clear();
         await props.createBudget();
-        window.location.replace("http://localhost:3000/overview");
+        window.location.replace(`${server}:${port}/overview`);
     }
 
     return ( 

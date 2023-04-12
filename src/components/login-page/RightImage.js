@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import SendRequest from "../../util/sendRequest";
 
+const server = process.env.REACT_APP_SERVER_ADDRESS;
+const port = process.env.REACT_APP_FRONTEND_PORT_NUMBER;
+
 const RightImage = () => {
 
     const [email, setEmail] = useState(null);
@@ -17,9 +20,9 @@ const RightImage = () => {
             userPassword: password
         };
         const response = await SendRequest.postReq("/user/authenticate", authRequest);
-
+    
         if(response == true){
-            window.location.replace("http://localhost:3000/overview");
+            window.location.replace(`${server}:${port}/overview`);
         }
         console.log("form submit");
 
@@ -44,7 +47,7 @@ const RightImage = () => {
         
         await SendRequest.postReq("/user/authenticate", authRequest);
 
-        window.location.replace("http://localhost:3000/overview");
+        window.location.replace(`${server}:${port}/overview`);
 
     }
 

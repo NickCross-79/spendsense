@@ -1,10 +1,13 @@
 import ExpenseItem from "./ExpenseItem";
 import React, { useEffect, useState } from "react";
 
+const server = process.env.REACT_APP_SERVER_ADDRESS;
+const port = process.env.REACT_APP_BACKEND_PORT_NUMBER;
+
 const TopExpenses = (props) => {
   const [expenseData, setExpenseData] = useState([]);
-  const getExpenseIds = "http://localhost:3001/budget/" + props.budgetId + "/expenses";
-  const getExpenseById = "http://localhost:3001/expense/";
+  const getExpenseIds = `${server}:${port}/budget/` + props.budgetId + "/expenses";
+  const getExpenseById = `${server}:${port}/expense/`;
 
   useEffect(() =>{
     const fetchExpensePromises = props.expenseList.map(expenseId => {

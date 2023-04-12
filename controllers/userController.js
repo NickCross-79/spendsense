@@ -9,6 +9,18 @@ const registerUser = async (req, res) => {
   res.sendStatus(200);
 }
 
+// Get user by _id
+const getUserDetails = async (req, res) => {
+  UserService.getUserDetails(req.decodedToken.userId)
+    .then(user => {
+      res.status(200).json(user);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+}
+
 // Get all budgets by user _id
 const getAllBudgets = (req, res) => {
   UserService.getAllBudgets(req.decodedToken.userId)
@@ -70,6 +82,7 @@ const authenticateUser = async (req, res) => {
 
 export default {
   registerUser,
+  getUserDetails,
   getAllBudgets,
   generatePLinkToken,
   exchangePublicToken,

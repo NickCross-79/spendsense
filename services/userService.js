@@ -26,13 +26,18 @@ const registerUser = async(userData) => {
     }
 }
 
+const getUserDetails = async (userId) => {
+    const user = await User.findById(userId).populate();
+    return user;
+}
+
 const getAllBudgets = async (userId) => {
     const budgetList = await (await Budget.find({ userId: userId }, { _id: 1 }));
-    //const test = budgetList.map(expense => expense.toString());
     return budgetList;
 }
 
 export default { 
     getAllBudgets,
+    getUserDetails,
     registerUser
 }

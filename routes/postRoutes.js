@@ -27,16 +27,16 @@ router.post('/budget/newBudget', AuthService.validateRequest, validationRules.bu
 });
 
 // Create a new income
-router.post('/income/newIncome', AuthService.validateRequest, validationRules.expenseCreation, (req, res) => {
+router.post('/income/newIncome', AuthService.validateRequest, validationRules.incomeCreation, (req, res) => {
     const errors = validationResult(req);
-    if(!errors.isEmpty()) res.status(400).json({errors: errors.array()});
+    if(!errors.isEmpty()) res.status(400).json({errors: errors.array(), msg:"Invalid income request"});
     else IncomeController.newIncome(req, res);
 });
 
 // Create a new expense
-router.post('/expense/newExpense', AuthService.validateRequest, validationRules.incomeCreation, (req, res) => {
+router.post('/expense/newExpense', AuthService.validateRequest, validationRules.expenseCreation, (req, res) => {
     const errors = validationResult(req);
-    if(!errors.isEmpty()) res.status(400).json({errors: errors.array()});
+    if(!errors.isEmpty()) res.status(400).json({errors: errors.array(), msg:"Invalid expense request"});
     else ExpenseController.newExpense(req, res);
 });
 

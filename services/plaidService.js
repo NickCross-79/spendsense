@@ -25,9 +25,9 @@ const generatePLinkToken = async (userId) => {
         client_name: 'SpendSense',
         products: ['transactions'],
         language: 'en',
-        redirect_uri: 'http://localhost:3001/',
+        redirect_uri: 'https://localhost:3001/',
         country_codes: ['CA'],
-        webhook: 'https://8947-174-95-60-30.ngrok.io/plaid/webhook'
+        webhook: 'https://34af-76-67-67-120.ngrok-free.app/plaid/webhook'
 
     };
     try{

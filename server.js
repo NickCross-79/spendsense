@@ -15,7 +15,8 @@ const db = mongoose.connection;
 // Using cors middleware to enable cross-origin resource sharing
 app.use(cors({
     origin: true,
-    credentials: true
+    credentials: true,
+    'Access-Control-Allow-Private-Network': true
 }));
 
 app.use(cookieParser());

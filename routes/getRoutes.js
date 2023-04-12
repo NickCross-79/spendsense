@@ -8,6 +8,9 @@ import AuthService from '../services/authService.js';
 const router = express.Router();
 router.use(express.json());
 
+// Get user details
+router.get('/user', AuthService.validateRequest, UserController.getUserDetails);
+
 // Get user budgets
 router.get('/user/budgets', AuthService.validateRequest, UserController.getAllBudgets);
 

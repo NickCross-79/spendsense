@@ -47,6 +47,6 @@ export default {
             .exists().withMessage('Must contain an income frequency'),
         check('paymentDate')
             .exists()
-            .isDate('Must contain a valid payment date'),
+            .isDate().withMessage('Must contain a valid payment date'),
     ]
 }

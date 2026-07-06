@@ -1,22 +1,18 @@
 import Expense from '../models/expenseModel.js';
 import Budget from '../models/budgetModel.js'
-import { ObjectId } from 'mongodb';
 
-const newExpense = (expenseData, userId) => {
-    return new Promise(async (resolve, reject) => {
-        console.log("userId:",userId);
-        const expense = new Expense({
-            userId: userId,
-            expenseName: expenseData.expenseName,
-            expenseType: expenseData.expenseType,
-            expenseAmount: expenseData.expenseAmount,
-            expenseDate: expenseData.expenseDate,
-        });
+const newExpense = async (expenseData, userId) => {
+    const expense = new Expense({
+        userId: userId,
+        expenseName: expenseData.expenseName,
+        expenseType: expenseData.expenseType,
+        expenseAmount: expenseData.expenseAmount,
+        expenseDate: expenseData.expenseDate,
+    });
 
-        await expense.save();
+    await expense.save();
 
-        resolve(expense._id);
-    });    
+    return expense._id;
 }
 
 const getExpenseById = async (id) => {
@@ -24,40 +20,31 @@ const getExpenseById = async (id) => {
     return expense;
 }
 
-const getExpenseAmountsByType = (expenseIds) => {
-    return new Promise(async (resolve, reject) => {
-        const expenses = await Expense.find({ _id: { $in: expenseIds } });
-        const result = {};
+const getExpenseAmountsByType = async (expenseIds) => {
+    const expenses = await Expense.find({ _id: { $in: expenseIds } });
+    const result = {};
 
-        expenses.forEach(expense => {
-            if(result[expense.expenseType]){
-                result[expense.expenseAmount] += expense.expenseAmount;
-            } else  {
-                result[expense.expenseType] = expense.expenseAmount;
-            }
-        });
-        resolve(result)
+    expenses.forEach(expense => {
+        if(result[expense.expenseType]){
+            result[expense.expenseType] += expense.expenseAmount;
+        } else  {
+            result[expense.expenseType] = expense.expenseAmount;
+        }
     });
+    return result;
 }
 
-const getExpenseTypes = (expenses) => {
-    return new Promise((resolve, reject) => {
-        Expense.distinct("expenseType", { _id: { $in: expenses } }, (err, expenseTypes) => {
-            if (err) {
-                reject(err);
-            } else {
-                expenseTypes.push('unspentIncome');
-                resolve(expenseTypes);
-            }
-        });
-    });
+const getExpenseTypes = async (expenses) => {
+    const expenseTypes = await Expense.distinct("expenseType", { _id: { $in: expenses } });
+    expenseTypes.push('unspentIncome');
+    return expenseTypes;
 }
 
 const deleteExpenseById = async (id) => {
-    await Expense.deleteOne({_id: ObjectId(id)});
+    await Expense.deleteOne({_id: id});
     await Budget.updateMany(
-        {"expenses": ObjectId(id)},
-        {$pull: {"expenses": ObjectId(id)}}
+        {"expenses": id},
+        {$pull: {"expenses": id}}
     );
 }
 

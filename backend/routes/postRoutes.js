@@ -12,58 +12,55 @@ import validationRules from '../middleware/validationRules.js';
 const router = express.Router();
 router.use(express.json());
 
-// Register new user
-router.post('/register', validationRules.registration,(req, res) => {
+// Rejects the request with the validation errors, if any
+function handleValidationErrors(req, res, next) {
     const errors = validationResult(req);
-    if(!errors.isEmpty()) res.status(400).json({errors: errors.array()});
-    else UserController.registerUser(req, res);
-});
+    if(!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
+    next();
+}
+
+// Register new user
+router.post('/register', validationRules.registration, handleValidationErrors, UserController.registerUser);
 
 // Create a new budget
-router.post('/budget/newBudget', AuthService.validateRequest, validationRules.budgetCreation, (req, res) => {
-    const errors = validationResult(req);
-    if(!errors.isEmpty()) res.status(400).json({errors: errors.array()});
-    else BudgetController.newBudget(req, res);
-});
+router.post('/budget/newBudget', AuthService.validateRequest, validationRules.budgetCreation, handleValidationErrors, BudgetController.newBudget);
 
 // Create a new income
-router.post('/income/newIncome', AuthService.validateRequest, validationRules.incomeCreation, (req, res) => {
-    const errors = validationResult(req);
-    if(!errors.isEmpty()) res.status(400).json({errors: errors.array(), msg:"Invalid income request"});
-    else IncomeController.newIncome(req, res);
-});
+router.post('/income/newIncome', AuthService.validateRequest, validationRules.incomeCreation, handleValidationErrors, IncomeController.newIncome);
 
 // Create a new expense
-router.post('/expense/newExpense', AuthService.validateRequest, validationRules.expenseCreation, (req, res) => {
-    const errors = validationResult(req);
-    if(!errors.isEmpty()) res.status(400).json({errors: errors.array(), msg:"Invalid expense request"});
-    else ExpenseController.newExpense(req, res);
-});
+router.post('/expense/newExpense', AuthService.validateRequest, validationRules.expenseCreation, handleValidationErrors, ExpenseController.newExpense);
 
-// Generate Plaid link token
-router.post('/plaid/create_link_token/:userId', UserController.generatePLinkToken);
+// Generate Plaid link token (the authenticated user's id is taken from the JWT)
+router.post('/plaid/create_link_token/:userId', AuthService.validateRequest, UserController.generatePLinkToken);
 
 // Exchange public token for access token
-router.post('/plaid/exchange_public_token/:pubtoken', UserController.exchangePublicToken);
+router.post('/plaid/exchange_public_token/:pubtoken', AuthService.validateRequest, UserController.exchangePublicToken);
 
 // Get user transactions
-router.post('/user/transactions', UserController.getTransactionData);
+router.post('/user/transactions', AuthService.validateRequest, UserController.getTransactionData);
 
 // Authenticate user
 router.post('/user/authenticate', UserController.authenticateUser);
 
-// Plaid webhook listener
-router.post('/plaid/webhook', handleRequest);
+// Log out (clear auth cookie)
+router.post('/user/logout', UserController.logoutUser);
 
-async function handleRequest(req, res) {
-    console.log("Webhook received");
-    if(req.body.webhook_code == "INITIAL_UPDATE"){
-        console.log("Initial update hook");
-        await PlaidTransactionRequestFlag.updateOne({item_id: req.body.item_id}, { $set: {initial_hook_received: true} });
-    } else if(req.body.webhook_code == "HISTORICAL_UPDATE"){
-        console.log("Historical update hook");
-        await PlaidTransactionRequestFlag.updateOne({item_id: req.body.item_id}, { $set: {historical_hook_received: true}});
-    } else console.log("Unknown request");
+// Plaid webhook listener
+router.post('/plaid/webhook', handleWebhook);
+
+async function handleWebhook(req, res) {
+    try {
+        if(req.body.webhook_code == "INITIAL_UPDATE"){
+            await PlaidTransactionRequestFlag.updateOne({item_id: req.body.item_id}, { $set: {initial_hook_received: true} });
+        } else if(req.body.webhook_code == "HISTORICAL_UPDATE"){
+            await PlaidTransactionRequestFlag.updateOne({item_id: req.body.item_id}, { $set: {historical_hook_received: true}});
+        }
+        res.sendStatus(200);
+    } catch (err) {
+        console.log("Failed to handle Plaid webhook", err);
+        res.sendStatus(500);
+    }
 }
 
 export default router;

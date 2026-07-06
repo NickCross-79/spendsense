@@ -7,7 +7,7 @@ This repository is a monorepo containing both halves of the application:
 | Directory | Description |
 |-----------|-------------|
 | [`backend/`](backend/) | REST API — Node.js, Express, Mongoose (MongoDB), JWT cookie authentication, Plaid integration |
-| [`frontend/`](frontend/) | Single-page app — React 18, React Router, Chart.js, react-plaid-link |
+| [`frontend/`](frontend/) | Single-page app — React 18 + Vite, React Router, Chart.js, react-plaid-link |
 
 ## Getting started
 
@@ -33,8 +33,11 @@ See [`backend/README.md`](backend/README.md) for environment variables, the API 
 ```bash
 cd frontend
 npm install
-npm start        # runs on port 3000
+cp .env.example .env   # point VITE_API_URL at the backend
+npm run dev            # runs on port 3000
 ```
+
+See [`frontend/README.md`](frontend/README.md) for scripts and structure.
 
 ## Repository history
 

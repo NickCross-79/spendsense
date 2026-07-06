@@ -1,0 +1,29 @@
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/spendsense
+      PORT: 3001
+      CORS_ORIGINS: http://localhost:3000
+      JWT_KEY: ${JWT_KEY:-dev-only-secret}
+      SALTROUNDS: ${SALTROUNDS:-10}
+      PLAID_CLIENT_ID: ${PLAID_CLIENT_ID:-}
+      PLAID_SECRET_KEY: ${PLAID_SECRET_KEY:-}
+      PLAID_ENV: ${PLAID_ENV:-sandbox}
+      PLAID_COUNTRY_CODES: ${PLAID_COUNTRY_CODES:-CA}
+      PLAID_REDIRECT_URI: ${PLAID_REDIRECT_URI:-}
+      PLAID_WEBHOOK_URL: ${PLAID_WEBHOOK_URL:-}
+    depends_on:
+      - mongo
+
+volumes:
+  mongo-data:

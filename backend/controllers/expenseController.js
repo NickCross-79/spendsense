@@ -2,22 +2,36 @@ import ExpenseService from "../services/expenseService.js";
 
 // Create new expense
 const newExpense = async (req, res) => {
-    console.log("Create new expense");
-    console.log("req: ",req);
-    const response = await ExpenseService.newExpense(req.body, req.decodedToken.userId);
-    res.status(200).json(response);
+    try {
+        const response = await ExpenseService.newExpense(req.body, req.decodedToken.userId);
+        res.status(200).json(response);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
 }
 
 // Get expense by id
 const getExpenseById = async (req, res) => {
-    const expense = await ExpenseService.getExpenseById(req.params.id);
-    res.status(200).json(expense);
+    try {
+        const expense = await ExpenseService.getExpenseById(req.params.id);
+        if(expense == null) return res.sendStatus(404);
+        res.status(200).json(expense);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
 }
 
 // Delete expense by id
-const deleteExpenseById = (req, res) => {
-    console.log("Delete expense by id");
-    ExpenseService.deleteExpenseById(req.params.id);
+const deleteExpenseById = async (req, res) => {
+    try {
+        await ExpenseService.deleteExpenseById(req.params.id);
+        res.sendStatus(200);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
 }
 
 export default {

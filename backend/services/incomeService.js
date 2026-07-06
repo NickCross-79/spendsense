@@ -1,6 +1,6 @@
+import mongoose from 'mongoose';
 import Income from '../models/incomeModel.js';
 import Budget from '../models/budgetModel.js';
-import { ObjectId } from 'mongodb';
 
 const newIncome = async (incomeData, userId) => {
     const income = new Income({
@@ -18,14 +18,14 @@ const newIncome = async (incomeData, userId) => {
     return income._id;
 }
 
-const getIncomeTotals = (incomeList) => {
-    return new Promise(async (resolve, reject) => {
-        const totalIncome = await Income.aggregate([
-            { $match: { $or: incomeList.map(id => ({ _id: ObjectId(id) })) } },
-            { $group: { _id: null, total: { $sum: "$incomeAmount" } } }
-          ]);
-        resolve(totalIncome[0].total);
-    });
+const getIncomeTotals = async (incomeList) => {
+    if(!incomeList || incomeList.length === 0) return 0;
+
+    const totalIncome = await Income.aggregate([
+        { $match: { _id: { $in: incomeList.map(id => new mongoose.Types.ObjectId(id)) } } },
+        { $group: { _id: null, total: { $sum: "$incomeAmount" } } }
+    ]);
+    return totalIncome.length > 0 ? totalIncome[0].total : 0;
 }
 
 const getIncomeById = async (id) => {
@@ -34,10 +34,10 @@ const getIncomeById = async (id) => {
 }
 
 const deleteIncomeById = async (id) => {
-    await Income.deleteOne({_id: ObjectId(id)});
+    await Income.deleteOne({_id: id});
     await Budget.updateMany(
-        {"incomes": ObjectId(id)},
-        {$pull: {"incomes": ObjectId(id)}}
+        {"incomes": id},
+        {$pull: {"incomes": id}}
     );
 }
 

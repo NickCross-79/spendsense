@@ -10,6 +10,9 @@ export default {
         check('lastName')
             .exists().withMessage('Must contain last name')
             .isAlpha().withMessage('Must only contain letters'),
+        check('userPassword')
+            .exists().withMessage('Must contain a password')
+            .isLength({ min: 8 }).withMessage('Password must be at least 8 characters'),
     ],
 
     budgetCreation: [

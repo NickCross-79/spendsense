@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import bcrypt from 'bcrypt';
-import 'dotenv/config';
 import User from '../models/userModel.js';
 import AuthModel from '../models/authModel.js'
 import jwt from 'jsonwebtoken';
@@ -18,13 +17,15 @@ const hashPassword = (plainPassword) => {
     });
 };
 
+// Returns the user's id when the credentials match, false otherwise
 const authenticateUser = async (userEmail, userPassword) => {
     const user = await User.findOne({userEmail: userEmail}).exec();
 
     if(user != null) {
         const storedHash = await AuthModel.findOne({userId: user._id}).exec();
+        if(storedHash == null) return false;
         const hashCheck = await bcrypt.compare(userPassword, storedHash.authPassword);
-        return user._id.toString();
+        if(hashCheck) return user._id.toString();
     }
     return false;
 }
@@ -36,10 +37,13 @@ const generateJWT = async (userId) => {
 }
 
 function validateRequest(req, res, next) {
-    const decodedToken = jwt.verify(req.cookies.token, process.env.JWT_KEY);
-    req.decodedToken = decodedToken;
-
-    next();
+    try {
+        const decodedToken = jwt.verify(req.cookies.token, process.env.JWT_KEY);
+        req.decodedToken = decodedToken;
+        next();
+    } catch (err) {
+        res.status(401).json({msg: 'Not authenticated'});
+    }
 }
 
 export default {

@@ -1,0 +1,67 @@
+/* SpendSense design tokens — single source of truth for the UI */
+:root {
+    /* Brand */
+    --brand-700: #4a00d6;
+    --brand-600: #5500ff;
+    --brand-500: #8a4fff;
+    --brand-400: #a678ff;
+    --brand-200: #d0b9ff;
+    --brand-100: #ece2ff;
+    --brand-50: #f6f1ff;
+    --brand-gradient: linear-gradient(56deg, #5500ff 27%, #d0b9ff 103%);
+
+    /* Surfaces */
+    --surface-page: #f6f7fb;
+    --surface-card: #ffffff;
+    --surface-tint: #eef0f8;
+
+    /* Ink */
+    --text-strong: #151a24;
+    --text-body: #3c4250;
+    --text-soft: #5c6470;
+    --text-muted: #8a90a0;
+
+    /* Feedback */
+    --danger-600: #c92f2f;
+    --danger-500: #e23b3b;
+    --danger-50: #fdeeee;
+    --success-600: #157a3c;
+    --success-50: #eaf7ef;
+
+    /* Borders & shadows */
+    --border: #e3e5ef;
+    --border-strong: #c9cddc;
+    --shadow-sm: 0 1px 3px rgba(21, 26, 36, 0.08);
+    --shadow-md: 0 8px 24px rgba(21, 26, 36, 0.1);
+
+    /* Radii */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-full: 999px;
+
+    /* Spacing scale */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+
+    /* Type */
+    --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-md: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: clamp(1.3rem, 1.1rem + 1vw, 1.75rem);
+    --text-2xl: clamp(1.7rem, 1.3rem + 2vw, 2.5rem);
+}
+
+@supports (font-variation-settings: normal) {
+    :root {
+        --font-sans: 'Inter var', 'Inter', system-ui, sans-serif;
+    }
+}

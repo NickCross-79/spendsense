@@ -1,0 +1,139 @@
+.side-menu {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-5);
+    position: sticky;
+    top: 76px;
+}
+
+.side-menu_title {
+    font-size: var(--text-md);
+}
+
+.side-menu h3 {
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+}
+
+.side-menu_connect {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    text-align: center;
+    padding: var(--space-4) 0;
+}
+
+.side-menu_connect p {
+    color: var(--text-soft);
+    font-size: var(--text-sm);
+}
+
+.side-menu_muted {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+}
+
+.side-menu_success {
+    color: var(--success-600);
+    background: var(--success-50);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 500;
+}
+
+/* Account balance */
+.account-balance {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-4);
+    background: var(--brand-50);
+    border-radius: var(--radius-md);
+}
+
+.account-balance_name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-soft);
+}
+
+.account-balance_amount {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-strong);
+}
+
+/* Transactions */
+.transactions-chart_canvas {
+    position: relative;
+    height: 160px;
+    margin-top: var(--space-3);
+}
+
+.transactions-list ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+}
+
+.transactions-list li {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: var(--space-3);
+    align-items: baseline;
+    font-size: var(--text-sm);
+}
+
+.transactions-list_name {
+    font-weight: 500;
+    color: var(--text-strong);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.transactions-list_amount {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.transactions-list_date {
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+}
+
+/* Import into budget */
+.side-menu_import {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-4);
+}
+
+.side-menu_import-controls {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.side-menu_import-controls select {
+    flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 980px) {
+    .side-menu {
+        position: static;
+    }
+}

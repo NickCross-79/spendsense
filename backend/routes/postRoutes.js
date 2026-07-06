@@ -8,6 +8,7 @@ import PlaidTransactionRequestFlag from '../models/requestFlagModel.js';
 import AuthService from '../services/authService.js';
 import { validationResult } from 'express-validator';
 import validationRules from '../middleware/validationRules.js';
+import ownership from '../middleware/ownership.js';
 
 const router = express.Router();
 router.use(express.json());
@@ -30,6 +31,9 @@ router.post('/income/newIncome', AuthService.validateRequest, validationRules.in
 
 // Create a new expense
 router.post('/expense/newExpense', AuthService.validateRequest, validationRules.expenseCreation, handleValidationErrors, ExpenseController.newExpense);
+
+// Import Plaid transactions into a budget as expenses
+router.post('/budget/:id/expenses/import', AuthService.validateRequest, ownership.budget, BudgetController.importTransactions);
 
 // Generate Plaid link token (the authenticated user's id is taken from the JWT)
 router.post('/plaid/create_link_token/:userId', AuthService.validateRequest, UserController.generatePLinkToken);

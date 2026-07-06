@@ -48,16 +48,36 @@ const exchangePublicToken = async (publicToken) => {
     return plaidResponse;
 };
 
-// Get transaction data
+// Get transaction data. Pages through transactionsSync and returns the same
+// shape the frontend has always consumed: accounts, transactions (newest
+// first) and per-day amount totals.
 const getTransactionData = async (transactionRequest, item_id) => {
-    const totalTransactionsByDay = {};
     if(await checkFlag(item_id)){
         return false;
     }
 
     await PlaidTransactionRequestFlag.deleteOne({item_id: item_id});
-    const response = await plaidClient.transactionsGet(transactionRequest);
-    response.data.transactions.forEach(transaction => {
+
+    const transactions = [];
+    let accounts = [];
+    let cursor;
+    let hasMore = true;
+    while(hasMore){
+        const response = await plaidClient.transactionsSync({
+            access_token: transactionRequest.access_token,
+            cursor: cursor,
+            count: 500,
+        });
+        transactions.push(...response.data.added);
+        accounts = response.data.accounts;
+        hasMore = response.data.has_more;
+        cursor = response.data.next_cursor;
+    }
+
+    transactions.sort((a, b) => b.date.localeCompare(a.date));
+
+    const totalTransactionsByDay = {};
+    transactions.forEach(transaction => {
         const day = parseInt(transaction.date.slice(-2));
         if(totalTransactionsByDay[day] === undefined){
             totalTransactionsByDay[day] = transaction.amount;
@@ -66,8 +86,7 @@ const getTransactionData = async (transactionRequest, item_id) => {
         }
     });
 
-    response.data.totalTransactionsByDay = totalTransactionsByDay;
-    return response.data;
+    return { accounts, transactions, totalTransactionsByDay };
 }
 
 async function checkFlag(item_id) {

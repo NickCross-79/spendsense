@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const AuthenticationSchema = new mongoose.Schema({
     userId: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         unique: true,
     },

@@ -11,25 +11,22 @@ This repository is a monorepo containing both halves of the application:
 
 ## Getting started
 
+The quickest way to run the stack locally is Docker Compose, which starts MongoDB and the backend together:
+
+```bash
+docker compose up
+```
+
 ### Backend
 
 ```bash
 cd backend
 npm install
-npm start        # runs on port 3001
+cp .env.example .env   # fill in the values
+npm run dev            # development, runs on port 3001
 ```
 
-The backend requires a `.env` file with the following variables:
-
-| Variable | Description |
-|----------|-------------|
-| `MONGODB_URI` | MongoDB connection string |
-| `JWT_KEY` | Secret used to sign JWT auth tokens |
-| `SALTROUNDS` | bcrypt salt rounds (e.g. `10`) |
-| `PLAID_CLIENT_ID` | Plaid API client id |
-| `PLAID_SECRET_KEY` | Plaid API secret (sandbox) |
-
-See [`backend/README.md`](backend/README.md) for details on the API's folder structure and features.
+See [`backend/README.md`](backend/README.md) for environment variables, the API endpoint reference, and folder structure. `npm test` runs the API test suite; `npm run lint` runs ESLint.
 
 ### Frontend
 

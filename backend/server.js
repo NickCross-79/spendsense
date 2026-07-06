@@ -7,16 +7,17 @@ import deleteRoutes from './routes/deleteRoutes.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
-// Initialize app and DB connection
+const PORT = process.env.PORT || 3001;
+
 const app = express();
-mongoose.connect(process.env.MONGODB_URI);
-const db = mongoose.connection;
 
 // Using cors middleware to enable cross-origin resource sharing
+const corsOrigins = process.env.CORS_ORIGINS
+    ? process.env.CORS_ORIGINS.split(',').map(origin => origin.trim())
+    : true;
 app.use(cors({
-    origin: true,
+    origin: corsOrigins,
     credentials: true,
-    'Access-Control-Allow-Private-Network': true
 }));
 
 app.use(cookieParser());
@@ -26,9 +27,14 @@ app.use(getRoutes);
 app.use(postRoutes);
 app.use(deleteRoutes);
 
-// Listening for errors and logging DB connection
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
+// Connect to DB, then start listening
+try {
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log('Connected to MongoDB');
-    app.listen(3001);
-});
+    app.listen(PORT, () => console.log(`SpendSense backend listening on port ${PORT}`));
+} catch (err) {
+    console.error('Failed to connect to MongoDB:', err.message);
+    process.exit(1);
+}
+
+mongoose.connection.on('error', console.error.bind(console, 'connection error:'));

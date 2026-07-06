@@ -86,11 +86,27 @@ const getBudgetStats = async (req, res) => {
     }
 }
 
+// Import Plaid transactions into a budget as expenses
+const importTransactions = async (req, res) => {
+    try {
+        const transactions = req.body.transactions;
+        if(!Array.isArray(transactions) || transactions.length === 0) {
+            return res.status(400).json({msg: 'transactions must be a non-empty array'});
+        }
+        const expenseIds = await BudgetService.importTransactions(req.params.id, transactions, req.decodedToken.userId);
+        res.status(200).json(expenseIds);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+}
+
 export default {
     newBudget,
     getBudgetById,
     deleteBudgetById,
     getBudgetIncomes,
     getBudgetExpenses,
-    getBudgetStats
+    getBudgetStats,
+    importTransactions
 }

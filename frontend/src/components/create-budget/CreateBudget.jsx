@@ -7,6 +7,7 @@ import StepTimeline from './StepTimeline.jsx';
 import StepExpenses from './StepExpenses.jsx';
 import StepIncomes from './StepIncomes.jsx';
 import StepReview from './StepReview.jsx';
+import DraftSummary from './DraftSummary.jsx';
 import './create-budget.css';
 
 const DRAFT_KEY = 'spendsense-budget-draft';
@@ -75,19 +76,24 @@ const CreateBudget = () => {
     return (
         <div className="wizard">
             <StepIndicator steps={STEPS} current={step} />
-            {step === 0 && <StepName {...stepProps} />}
-            {step === 1 && <StepTimeline {...stepProps} />}
-            {step === 2 && <StepExpenses {...stepProps} />}
-            {step === 3 && <StepIncomes {...stepProps} />}
-            {step === 4 && (
-                <StepReview
-                    draft={draft}
-                    back={back}
-                    submitting={submitting}
-                    error={error}
-                    createBudget={createBudget}
-                />
-            )}
+            <div className="wizard_layout">
+                <div className="wizard_content">
+                    {step === 0 && <StepName {...stepProps} />}
+                    {step === 1 && <StepTimeline {...stepProps} />}
+                    {step === 2 && <StepExpenses {...stepProps} />}
+                    {step === 3 && <StepIncomes {...stepProps} />}
+                    {step === 4 && (
+                        <StepReview
+                            draft={draft}
+                            back={back}
+                            submitting={submitting}
+                            error={error}
+                            createBudget={createBudget}
+                        />
+                    )}
+                </div>
+                {step < 4 && <DraftSummary draft={draft} />}
+            </div>
         </div>
     );
 };

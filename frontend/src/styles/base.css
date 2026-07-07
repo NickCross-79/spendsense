@@ -6,7 +6,11 @@
 body {
     margin: 0;
     font-family: var(--font-sans);
-    background: var(--surface-page);
+    background:
+        radial-gradient(1100px 420px at 18% -8%, rgba(138, 79, 255, 0.08), transparent 70%),
+        radial-gradient(900px 360px at 95% 4%, rgba(85, 0, 255, 0.05), transparent 70%),
+        var(--surface-page);
+    background-attachment: fixed;
     color: var(--text-body);
     -webkit-font-smoothing: antialiased;
 }
@@ -56,6 +60,54 @@ img {
     max-width: 1280px;
     margin: 0 auto;
     padding: var(--space-5) var(--space-5) var(--space-8);
+    animation: page-enter 320ms ease-out;
+}
+
+@keyframes page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover lift for interactive cards and tiles */
+.lift {
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Shimmering skeleton placeholders */
+.skeleton {
+    border-radius: var(--radius-md);
+    background: linear-gradient(100deg, var(--surface-tint) 40%, #f8f7fd 50%, var(--surface-tint) 60%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    from { background-position: 120% 0; }
+    to { background-position: -80% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page,
+    .skeleton,
+    .lift,
+    .spinner {
+        animation: none;
+        transition: none;
+    }
+    .lift:hover {
+        transform: none;
+    }
 }
 
 .card {
@@ -86,6 +138,10 @@ img {
 .btn:disabled {
     opacity: 0.55;
     cursor: not-allowed;
+}
+
+.btn:active:not(:disabled) {
+    transform: scale(0.97);
 }
 
 .btn-sm {

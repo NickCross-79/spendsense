@@ -47,6 +47,32 @@
     font-weight: 500;
 }
 
+.nav_avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    background: var(--brand-100);
+    color: var(--brand-700);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.logo-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.logo-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+}
+
 @media (max-width: 640px) {
     .nav {
         gap: var(--space-3);

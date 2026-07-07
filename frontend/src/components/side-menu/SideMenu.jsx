@@ -86,6 +86,19 @@ const SideMenu = ({ budgets, onImported }) => {
 
             {!transactionData && !pending && (
                 <div className="side-menu_connect">
+                    <svg className="side-menu_placeholder" viewBox="0 0 240 90" aria-hidden="true">
+                        <rect x="0" y="0" width="240" height="90" rx="10" fill="#f2f0f9" />
+                        <polyline
+                            points="16,64 52,48 88,56 124,34 160,42 196,22 224,30"
+                            fill="none"
+                            stroke="#cfc6ea"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                        <circle cx="124" cy="34" r="4" fill="#cfc6ea" />
+                        <circle cx="196" cy="22" r="4" fill="#cfc6ea" />
+                    </svg>
                     <p>Link your bank to see balances and recent transactions.</p>
                     {unavailable ? (
                         <p className="side-menu_muted">Bank linking is currently unavailable.</p>

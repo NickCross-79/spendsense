@@ -3,6 +3,10 @@ import { useAuth } from '../context/AuthContext.jsx';
 import Logo from './Logo.jsx';
 import './nav.css';
 
+function initials(user) {
+    return `${user?.firstName?.[0] ?? ''}${user?.lastName?.[0] ?? ''}`.toUpperCase() || '?';
+}
+
 function Nav() {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
@@ -20,6 +24,7 @@ function Nav() {
                 <NavLink to="/create-budget">Create Budget</NavLink>
             </nav>
             <div className="nav_user">
+                <span className="nav_avatar" aria-hidden="true">{initials(user)}</span>
                 <span className="nav_user-name">{user?.firstName} {user?.lastName}</span>
                 <button type="button" className="btn btn-ghost btn-sm" onClick={handleLogout}>
                     Log out

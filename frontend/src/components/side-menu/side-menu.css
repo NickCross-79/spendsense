@@ -36,6 +36,11 @@
     font-size: var(--text-sm);
 }
 
+.side-menu_placeholder {
+    width: 100%;
+    height: auto;
+}
+
 .side-menu_muted {
     color: var(--text-muted);
     font-size: var(--text-sm);

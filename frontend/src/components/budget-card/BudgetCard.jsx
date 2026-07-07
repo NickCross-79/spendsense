@@ -1,14 +1,24 @@
 import { useEffect, useState } from 'react';
 import api from '../../api/client.js';
 import { formatMoney } from '../../constants.js';
+import StatTiles from './StatTiles.jsx';
 import BudgetGraph from './BudgetGraph.jsx';
 import TopExpenses from './TopExpenses.jsx';
+import CategoryBars from './CategoryBars.jsx';
+import UpcomingPayments from './UpcomingPayments.jsx';
 import './budget-card.css';
+
+// Whole days from today until the budget's end date; negative = ended
+function daysUntil(dateString) {
+    if (!dateString) return null;
+    const end = new Date(`${dateString}T23:59:59`);
+    if (Number.isNaN(end.getTime())) return null;
+    return Math.ceil((end.getTime() - Date.now()) / 86400000);
+}
 
 const BudgetCard = ({ budgets, onChanged }) => {
     const [index, setIndex] = useState(0);
-    const [stats, setStats] = useState(null);
-    const [budget, setBudget] = useState(null);
+    const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [confirmingDelete, setConfirmingDelete] = useState(false);
 
@@ -19,15 +29,22 @@ const BudgetCard = ({ budgets, onChanged }) => {
         let cancelled = false;
         setLoading(true);
         setConfirmingDelete(false);
-        Promise.all([
-            api.get(`/budget/${budgetId}/stats`),
-            api.get(`/budget/${budgetId}`),
-        ]).then(([statsResponse, budgetResponse]) => {
+
+        async function load() {
+            const [statsResponse, budgetResponse] = await Promise.all([
+                api.get(`/budget/${budgetId}/stats`),
+                api.get(`/budget/${budgetId}`),
+            ]);
+            const stats = statsResponse.data;
+            const [expenses, incomes] = await Promise.all([
+                Promise.all(stats.expenseList.map(id => api.get(`/expense/${id}`).then(r => r.data))),
+                Promise.all(stats.incomeList.map(id => api.get(`/income/${id}`).then(r => r.data))),
+            ]);
             if (cancelled) return;
-            setStats(statsResponse.data);
-            setBudget(budgetResponse.data);
+            setData({ stats, budget: budgetResponse.data, expenses, incomes });
             setLoading(false);
-        }).catch(() => {
+        }
+        load().catch(() => {
             if (!cancelled) setLoading(false);
         });
         return () => { cancelled = true; };
@@ -39,8 +56,30 @@ const BudgetCard = ({ budgets, onChanged }) => {
         onChanged();
     };
 
+    const spent = data ? data.expenses.reduce((sum, e) => sum + (e.expenseAmount || 0), 0) : 0;
+    const incomeTotal = data?.stats.incomeTotal ?? 0;
+    const daysLeft = data ? daysUntil(data.budget?.endDate) : null;
+
+    if (loading || !data) {
+        return (
+            <div className="budget-dash" role="status" aria-label="Loading budget">
+                <div className="stat-tiles">
+                    {[0, 1, 2, 3].map(i => <div key={i} className="skeleton stat-tile_skeleton" />)}
+                </div>
+                <div className="skeleton budget-card_skeleton" />
+            </div>
+        );
+    }
+
     return (
-        <div className="budget-carousel">
+        <div className="budget-dash">
+            <StatTiles
+                incomeTotal={incomeTotal}
+                spent={spent}
+                leftOver={incomeTotal - spent}
+                daysLeft={daysLeft}
+            />
+
             <div className="budget-carousel_row">
                 <button
                     type="button"
@@ -52,32 +91,27 @@ const BudgetCard = ({ budgets, onChanged }) => {
                     ‹
                 </button>
 
-                <article className="card budget-card" aria-busy={loading}>
-                    {loading && (
-                        <div className="budget-card_loading" role="status" aria-label="Loading budget">
-                            <div className="spinner" />
+                <article className="card budget-card lift">
+                    <header className="budget-card_header">
+                        <div>
+                            <h2 className="budget-card_name">{data.stats.budgetName}</h2>
+                            {data.budget && (
+                                <p className="budget-card_dates">{data.budget.startDate} → {data.budget.endDate}</p>
+                            )}
                         </div>
-                    )}
-                    {!loading && stats && (
-                        <>
-                            <header className="budget-card_header">
-                                <div>
-                                    <h2 className="budget-card_name">{stats.budgetName}</h2>
-                                    {budget && (
-                                        <p className="budget-card_dates">{budget.startDate} → {budget.endDate}</p>
-                                    )}
-                                </div>
-                                <div className="budget-card_total">
-                                    <span>Total income</span>
-                                    <strong>{formatMoney(stats.incomeTotal)}</strong>
-                                </div>
-                            </header>
-                            <div className="budget-card_body">
-                                <BudgetGraph data={stats.expensePercentagesByType} />
-                                <TopExpenses expenseList={stats.expenseList} />
-                            </div>
-                        </>
-                    )}
+                        <div className="budget-card_total">
+                            <span>Total income</span>
+                            <strong>{formatMoney(incomeTotal)}</strong>
+                        </div>
+                    </header>
+                    <div className="budget-card_body">
+                        <BudgetGraph
+                            data={data.stats.expensePercentagesByType}
+                            spent={spent}
+                            incomeTotal={incomeTotal}
+                        />
+                        <TopExpenses expenses={data.expenses} />
+                    </div>
                 </article>
 
                 <button
@@ -89,6 +123,11 @@ const BudgetCard = ({ budgets, onChanged }) => {
                 >
                     ›
                 </button>
+            </div>
+
+            <div className="budget-panels">
+                <CategoryBars expenses={data.expenses} />
+                <UpcomingPayments incomes={data.incomes} />
             </div>
 
             <div className="budget-carousel_footer">

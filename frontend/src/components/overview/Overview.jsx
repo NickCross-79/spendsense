@@ -4,6 +4,7 @@ import api from '../../api/client.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 import BudgetCard from '../budget-card/BudgetCard.jsx';
 import SideMenu from '../side-menu/SideMenu.jsx';
+import EmptyBudgets from './EmptyBudgets.jsx';
 import './overview.css';
 
 const Overview = () => {
@@ -40,16 +41,19 @@ const Overview = () => {
                 )}
 
                 {!error && budgets === null && (
-                    <div className="card overview_state" role="status" aria-label="Loading budgets">
-                        <div className="spinner" />
-                        <p>Loading your budgets…</p>
+                    <div className="budget-dash" role="status" aria-label="Loading budgets">
+                        <div className="stat-tiles">
+                            {[0, 1, 2, 3].map(i => <div key={i} className="skeleton stat-tile_skeleton" />)}
+                        </div>
+                        <div className="skeleton budget-card_skeleton" />
                     </div>
                 )}
 
                 {!error && budgets !== null && budgets.length === 0 && (
                     <div className="card overview_state">
+                        <EmptyBudgets />
                         <h2>No budgets yet</h2>
-                        <p>Create your first budget to start tracking your spending.</p>
+                        <p>Create your first budget to start tracking where every dollar goes.</p>
                         <Link className="btn btn-primary" to="/create-budget">Create a budget</Link>
                     </div>
                 )}

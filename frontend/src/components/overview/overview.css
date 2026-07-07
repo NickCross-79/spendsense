@@ -27,6 +27,12 @@
 
 .overview_state p {
     color: var(--text-soft);
+    max-width: 380px;
+}
+
+.empty-illustration {
+    width: 180px;
+    height: auto;
 }
 
 @media (max-width: 980px) {

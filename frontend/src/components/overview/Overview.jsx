@@ -29,9 +29,13 @@ const Overview = () => {
     return (
         <div className="overview">
             <section className="overview_main">
-                <h1 className="overview_header">
-                    Welcome back, <span className="accent">{user?.firstName}</span>
-                </h1>
+                <div className="hero">
+                    <div className="hero_text">
+                        <h1>Welcome back, {user?.firstName}</h1>
+                        <p>Here&apos;s how your money is doing today.</p>
+                    </div>
+                    <Link className="btn btn-on-gradient" to="/create-budget">+ New budget</Link>
+                </div>
 
                 {error && (
                     <div className="card overview_state">

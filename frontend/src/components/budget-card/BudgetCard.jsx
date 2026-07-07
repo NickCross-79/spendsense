@@ -59,6 +59,8 @@ const BudgetCard = ({ budgets, onChanged }) => {
     const spent = data ? data.expenses.reduce((sum, e) => sum + (e.expenseAmount || 0), 0) : 0;
     const incomeTotal = data?.stats.incomeTotal ?? 0;
     const daysLeft = data ? daysUntil(data.budget?.endDate) : null;
+    const spentFraction = incomeTotal > 0 ? spent / incomeTotal : 0;
+    const overBudget = incomeTotal > 0 && spent > incomeTotal;
 
     if (loading || !data) {
         return (
@@ -80,82 +82,90 @@ const BudgetCard = ({ budgets, onChanged }) => {
                 daysLeft={daysLeft}
             />
 
-            <div className="budget-carousel_row">
-                <button
-                    type="button"
-                    className="carousel-arrow"
-                    aria-label="Previous budget"
-                    disabled={safeIndex === 0}
-                    onClick={() => setIndex(i => Math.max(i - 1, 0))}
-                >
-                    ‹
-                </button>
-
-                <article className="card budget-card lift">
-                    <header className="budget-card_header">
-                        <div>
-                            <h2 className="budget-card_name">{data.stats.budgetName}</h2>
-                            {data.budget && (
-                                <p className="budget-card_dates">{data.budget.startDate} → {data.budget.endDate}</p>
-                            )}
-                        </div>
-                        <div className="budget-card_total">
-                            <span>Total income</span>
-                            <strong>{formatMoney(incomeTotal)}</strong>
-                        </div>
-                    </header>
-                    <div className="budget-card_body">
-                        <BudgetGraph
-                            data={data.stats.expensePercentagesByType}
-                            spent={spent}
-                            incomeTotal={incomeTotal}
-                        />
-                        <TopExpenses expenses={data.expenses} />
+            <article className="card budget-card lift">
+                <header className="budget-card_header">
+                    <div className="budget-card_heading">
+                        <h2 className="budget-card_name">{data.stats.budgetName}</h2>
+                        {data.budget && (
+                            <span className="budget-card_dates">{data.budget.startDate} → {data.budget.endDate}</span>
+                        )}
                     </div>
-                </article>
+                    {budgets.length > 1 && (
+                        <div className="carousel-cluster" role="group" aria-label="Switch budget">
+                            <button
+                                type="button"
+                                className="carousel-arrow"
+                                aria-label="Previous budget"
+                                disabled={safeIndex === 0}
+                                onClick={() => setIndex(i => Math.max(i - 1, 0))}
+                            >
+                                ‹
+                            </button>
+                            <div className="carousel-dots" role="tablist" aria-label="Budgets">
+                                {budgets.map((b, i) => (
+                                    <button
+                                        key={b._id}
+                                        type="button"
+                                        role="tab"
+                                        aria-selected={i === safeIndex}
+                                        aria-label={`Budget ${i + 1} of ${budgets.length}`}
+                                        className={`carousel-dot ${i === safeIndex ? 'is-active' : ''}`}
+                                        onClick={() => setIndex(i)}
+                                    />
+                                ))}
+                            </div>
+                            <button
+                                type="button"
+                                className="carousel-arrow"
+                                aria-label="Next budget"
+                                disabled={safeIndex >= budgets.length - 1}
+                                onClick={() => setIndex(i => Math.min(i + 1, budgets.length - 1))}
+                            >
+                                ›
+                            </button>
+                        </div>
+                    )}
+                </header>
 
-                <button
-                    type="button"
-                    className="carousel-arrow"
-                    aria-label="Next budget"
-                    disabled={safeIndex >= budgets.length - 1}
-                    onClick={() => setIndex(i => Math.min(i + 1, budgets.length - 1))}
-                >
-                    ›
-                </button>
-            </div>
+                <div className="budget-progress" role="img" aria-label={`${formatMoney(spent)} spent of ${formatMoney(incomeTotal)} income`}>
+                    <div className="budget-progress_track">
+                        <div
+                            className={`budget-progress_fill ${overBudget ? 'is-over' : ''}`}
+                            style={{ width: `${Math.min(spentFraction, 1) * 100}%` }}
+                        />
+                    </div>
+                    <span className="budget-progress_label">
+                        <strong>{formatMoney(spent)}</strong> spent of {formatMoney(incomeTotal)}
+                    </span>
+                </div>
+
+                <div className="budget-card_body">
+                    <BudgetGraph
+                        data={data.stats.expensePercentagesByType}
+                        spent={spent}
+                        incomeTotal={incomeTotal}
+                    />
+                    <TopExpenses expenses={data.expenses} />
+                </div>
+
+                <footer className="budget-card_footer">
+                    {!confirmingDelete ? (
+                        <button type="button" className="btn btn-danger-ghost btn-sm" onClick={() => setConfirmingDelete(true)}>
+                            Delete budget
+                        </button>
+                    ) : (
+                        <div className="budget-card_confirm">
+                            <span>Delete this budget?</span>
+                            <button type="button" className="btn btn-danger btn-sm" onClick={handleDelete}>Yes, delete</button>
+                            <button type="button" className="btn btn-ghost btn-sm" onClick={() => setConfirmingDelete(false)}>Cancel</button>
+                        </div>
+                    )}
+                </footer>
+            </article>
 
             <div className="budget-panels">
                 <CategoryBars expenses={data.expenses} />
                 <UpcomingPayments incomes={data.incomes} />
-            </div>
-
-            <div className="budget-carousel_footer">
-                <div className="carousel-dots" role="tablist" aria-label="Budgets">
-                    {budgets.map((b, i) => (
-                        <button
-                            key={b._id}
-                            type="button"
-                            role="tab"
-                            aria-selected={i === safeIndex}
-                            aria-label={`Budget ${i + 1} of ${budgets.length}`}
-                            className={`carousel-dot ${i === safeIndex ? 'is-active' : ''}`}
-                            onClick={() => setIndex(i)}
-                        />
-                    ))}
-                </div>
-
-                {!confirmingDelete ? (
-                    <button type="button" className="btn btn-danger-ghost btn-sm" onClick={() => setConfirmingDelete(true)}>
-                        Delete budget
-                    </button>
-                ) : (
-                    <div className="budget-card_confirm">
-                        <span>Delete this budget?</span>
-                        <button type="button" className="btn btn-danger btn-sm" onClick={handleDelete}>Yes, delete</button>
-                        <button type="button" className="btn btn-ghost btn-sm" onClick={() => setConfirmingDelete(false)}>Cancel</button>
-                    </div>
-                )}
             </div>
         </div>
     );

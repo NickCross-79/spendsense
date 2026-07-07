@@ -3,7 +3,9 @@
     align-items: center;
     gap: var(--space-6);
     padding: var(--space-3) var(--space-5);
-    background: var(--surface-card);
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;

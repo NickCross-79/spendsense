@@ -12,8 +12,61 @@
     min-width: 0;
 }
 
-.overview_header {
+/* Gradient hero band */
+.hero {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-5);
+    padding: var(--space-6) var(--space-6);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(115deg, #4a00d6 0%, #6d2bff 55%, #8a4fff 100%);
+    color: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(85, 0, 255, 0.22);
+}
+
+.hero::before,
+.hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+}
+
+.hero::before {
+    width: 260px;
+    height: 260px;
+    top: -140px;
+    right: -60px;
+}
+
+.hero::after {
+    width: 160px;
+    height: 160px;
+    bottom: -90px;
+    right: 180px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.hero_text h1 {
+    color: #ffffff;
     font-size: var(--text-2xl);
+    letter-spacing: -0.02em;
+}
+
+.hero_text p {
+    margin-top: var(--space-1);
+    color: rgba(255, 255, 255, 0.78);
+    font-size: var(--text-md);
+}
+
+.hero .btn-on-gradient {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
 }
 
 .overview_state {

@@ -193,6 +193,29 @@
     margin-top: var(--space-2);
 }
 
+/* Dashed "add to list" row */
+.btn-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    border: 2px dashed var(--brand-300);
+    border-radius: var(--radius-md);
+    background: var(--brand-50);
+    color: var(--brand-700);
+    font-family: inherit;
+    font-size: var(--text-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.btn-add:hover {
+    background: var(--brand-100);
+    border-color: var(--brand-400);
+}
+
 /* Added items */
 .item-list ul {
     display: flex;

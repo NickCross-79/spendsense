@@ -100,7 +100,7 @@ const StepIncomes = ({ draft, updateDraft, next, back }) => {
             </div>
 
             {error && <p className="form-error" role="alert">{error}</p>}
-            <button type="button" className="btn btn-secondary" onClick={handleAdd}>Add income</button>
+            <button type="button" className="btn-add" onClick={handleAdd}>+ Add income</button>
 
             <ItemList
                 items={draft.incomes}

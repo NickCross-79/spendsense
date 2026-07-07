@@ -150,11 +150,22 @@ img {
 }
 
 .btn-primary {
-    background: var(--brand-500);
+    background: linear-gradient(115deg, var(--brand-600), var(--brand-500));
     color: #ffffff;
+    box-shadow: 0 4px 14px rgba(85, 0, 255, 0.28);
 }
 .btn-primary:hover:not(:disabled) {
-    background: var(--brand-600);
+    background: linear-gradient(115deg, var(--brand-700), var(--brand-600));
+    box-shadow: 0 6px 18px rgba(85, 0, 255, 0.34);
+}
+
+.btn-on-gradient {
+    background: #ffffff;
+    color: var(--brand-700);
+    box-shadow: 0 4px 14px rgba(30, 0, 90, 0.25);
+}
+.btn-on-gradient:hover:not(:disabled) {
+    background: var(--brand-50);
 }
 
 .btn-secondary {
